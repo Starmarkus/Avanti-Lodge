@@ -78,8 +78,85 @@ body {
     padding-right: 50px;
   }
 
-  .avantiGuestLodgeDiv{
+ .avantiGuestLodgeDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* or center if you want it centered horizontally */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
+  gap: 10px; /* space between items */
+}
 
-    padding: 50px;
+.avantiGuestLodgeDiv h1,
+.avantiGuestLodgeDiv h2,
+.avantiGuestLodgeDiv p {
+  margin: 0; /* optional: remove default margins */
+  padding: 0;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
 
-  }
+.roomBlockSelectionWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+  height: 600px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden; /* prevents overflow */
+
+}
+
+.roomSelectionBanner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s, opacity 0.3s, border 0.3s;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid transparent; /* Default border */
+  background-clip: padding-box;
+  position: relative;
+  z-index: 1;
+  isolation: isolate; /* ensures hover layer stacks above neighbors */
+}
+
+.roomSelectionBanner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* default no dark */
+  transition: background-color 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.roomSelectionBanner:hover::before {
+  background-color: rgba(0, 0, 0, 0.4); /* darken on hover */
+}
+
+.roomSelectionBanner h3 {
+  position: relative;
+  z-index: 2; /* keep text above dark overlay */
+  margin: 0;
+}
+
+.roomSelectionBanner:hover {
+  transform: scale(1.02);
+  border: 2px solid orange; /* <- choose your own color */
+  z-index: 2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
