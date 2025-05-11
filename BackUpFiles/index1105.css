@@ -1,0 +1,162 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: teal;
+  }
+
+  .welcomeDiv{
+    min-height: 700px;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: background-image 2s ease-in-out;
+  }
+
+  .welcomeDiv {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-fader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+    z-index: -1;
+  }
+
+
+  nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.1); /* transparent white */
+    backdrop-filter: blur(30px); /* optional blur effect for modern look */
+    padding: 20px 20px;
+    z-index: 1000;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: flex-end; /* aligns to the right */
+    gap: 15px; /* spacing between items */
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    padding: 10px 10px;
+    transition: background 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: rgb(7, 83, 39);
+    background-color: rgba(255, 166, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .sloganCatchDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px; /* adjust height as needed */
+    text-align: center;
+    color: white;
+  }
+
+  .indexMainContentDiv{
+    background-color: white;
+    min-height: 600px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+ .avantiGuestLodgeDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* or center if you want it centered horizontally */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 60px;
+  padding-right: 60px;
+  gap: 10px; /* space between items */
+}
+
+.avantiGuestLodgeDiv h1,
+.avantiGuestLodgeDiv h2,
+.avantiGuestLodgeDiv p {
+  margin: 0; /* optional: remove default margins */
+  padding: 0;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.roomBlockSelectionWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+  height: 600px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden; /* prevents overflow */
+
+}
+
+.roomSelectionBanner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s, opacity 0.3s, border 0.3s;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid transparent; /* Default border */
+  background-clip: padding-box;
+  position: relative;
+  z-index: 1;
+  isolation: isolate; /* ensures hover layer stacks above neighbors */
+}
+
+.roomSelectionBanner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* default no dark */
+  transition: background-color 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.roomSelectionBanner:hover::before {
+  background-color: rgba(0, 0, 0, 0.4); /* darken on hover */
+}
+
+.roomSelectionBanner h3 {
+  position: relative;
+  z-index: 2; /* keep text above dark overlay */
+  margin: 0;
+}
+
+.roomSelectionBanner:hover {
+  transform: scale(1.02);
+  border: 2px solid orange; /* <- choose your own color */
+  z-index: 2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
