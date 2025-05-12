@@ -146,7 +146,7 @@ body {
 
 .roomSelectionBanner h3 {
   position: relative;
-  z-index: 2; /* keep text above dark overlay */
+  z-index: 3 ; /* keep text above dark overlay */
   margin: 0;
 }
 
