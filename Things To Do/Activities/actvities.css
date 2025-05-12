@@ -35,8 +35,8 @@
 .activitiesContainerDiv{
     background-color: white;
     min-height: 70vh;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .activitiesBannerDiv {
@@ -48,7 +48,7 @@
 }
 
 .activitiesBannerDivImage {
-  flex: 0 0 45%; /* Fixed 45% width */
+  flex: 0 0 46%; /* Fixed 46% width */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,4 +63,8 @@
 
 .activitiesBannerDivContent{
     padding: 35px;
+}
+
+.activitiesBannerDivContent h2{
+    padding-left: 50px;
 }
