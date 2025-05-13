@@ -65,6 +65,11 @@
     text-align: left;
 }
 
+.aboutUsHostPieceDiv h1:hover,
+ .aboutUsHostPieceDiv h2:hover{
+  color: white;
+ }
+
 .aboutUsHostPieceContentDiv{
   padding: 0px 30px;
 }
