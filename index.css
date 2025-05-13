@@ -220,3 +220,8 @@ body {
   background-repeat: no-repeat; /* Prevents image repetition */
   border-radius: 5px; /* Optional: adds rounded corners */
 }
+
+.indexGalleryDiv{
+
+  min-height: 500px;
+}
