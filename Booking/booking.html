@@ -3,14 +3,20 @@
 <head>
   <title>Booking</title>
 
-  <!--Linking CSS-->
+  <!-- Linking CSS -->
   <link rel="stylesheet" href="booking.css" />
-  <link rel="stylesheet" href="/Styling/sharedCSS.css" />
+  <link rel="stylesheet" href="#/Styling/sharedCSS.css" />
 </head>
 <body>
   <h1>Booking</h1>
-  <label for="booking-date">Select a date:</label>
-  <input type="date" id="booking-date">
+
+  <div id="date-selection">
+    <label for="start-date">Start date:</label>
+    <input type="date" id="start-date">
+
+    <label for="end-date">End date:</label>
+    <input type="date" id="end-date">
+  </div>
 
   <div id="rooms">
     <!-- Rooms will be added here by JavaScript -->
