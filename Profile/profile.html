@@ -2,64 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>User Profile Tabs</title>
+  <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/Styling/sharedCSS.css" />
+  <link rel="stylesheet" href="profile.css" />
 </head>
 <body>
 
-    <nav>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="About Us/aboutus.html">About Us</a>
-          <a href="Accomodation/">Accomodation</a>
-          <a href="Things To Do/">Things To Do</a>      
-          <a href="Contact/contact.html">Contact</a>
-          <a href="Booking/booking.html">Book Now</a>
-          <a href="Login/login.html">Login</a>
-          <a href="Profile/profile.html">Profile</a>
+  <nav>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../About Us/aboutus.html">About Us</a>
+      <a href="../Accomodation/">Accommodation</a>
+      <a href="../Things To Do/">Things To Do</a>      
+      <a href="../Contact/contact.html">Contact</a>
+      <a href="../Booking/booking.html">Book Now</a>
+      <a href="../Login/login.html">Login</a>
+      <a href="../Profile/profile.html">Profile</a>
+    </div>
+  </nav>
+
+  <div class="profile-container">
+    <h2>User Profile</h2>
+
+    <div class="tabs">
+      <button onclick="showTab('personal')" class="tab-btn">Personal Details</button>
+      <button onclick="showTab('bookings')" class="tab-btn">Bookings</button>
+      <button onclick="showTab('payments')" class="tab-btn">Payment Methods</button>
+    </div>
+
+    <div id="personal" class="tab-content">
+      <form id="profileForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" disabled />
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" disabled />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" disabled />
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" disabled />
+
+        <div class="form-buttons">
+          <button type="button" id="editBtn">Edit</button>
+          <button type="submit" id="saveBtn" style="display:none;">Save</button>
         </div>
-      </nav>
+      </form>
+    </div>
 
-  <h2>User Profile</h2>
+    <div id="bookings" class="tab-content" style="display:none;">
+      <h3>Your Bookings</h3>
+      <p>No bookings to show.</p>
+    </div>
 
-  <!-- Tabs -->
-  <div>
-    <button onclick="showTab('personal')">Personal Details</button>
-    <button onclick="showTab('bookings')">Bookings</button>
-    <button onclick="showTab('payments')">Payment Methods</button>
-  </div>
-  <hr />
-
-  <!-- Personal Details Tab -->
-  <div id="personal" style="display:block; margin-top: 20px;">
-    <form id="profileForm">
-      <label for="firstName">First Name:</label><br />
-      <input type="text" id="firstName" disabled><br /><br />
-
-      <label for="lastName">Last Name:</label><br />
-      <input type="text" id="lastName" disabled><br /><br />
-
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" disabled><br /><br />
-
-      <label for="phone">Phone Number:</label><br />
-      <input type="tel" id="phone" disabled><br /><br />
-
-      <button type="button" id="editBtn">Edit</button>
-      <button type="submit" id="saveBtn" style="display:none;">Save</button>
-    </form>
+    <div id="payments" class="tab-content" style="display:none;">
+      <h3>Payment Methods</h3>
+      <p>No payment methods saved.</p>
+    </div>
   </div>
 
-  <!-- Bookings Tab -->
-  <div id="bookings" style="display:none; margin-top: 20px;">
-    <h3>Your Bookings</h3>
-    <p>No bookings to show.</p>
-  </div>
+  <footer class="custom-footer">
+    <div class="footer-content">
+      <p>
+        📞 083 551 7502 | 083 691 0929 <br />
+        📍 19 Hout Street, Vredenburg, 7380 <br />
+        ✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a> <br />
+        🌐 -32.98086069699415, 17.991079832992956
+      </p>
 
-  <!-- Payment Methods Tab -->
-  <div id="payments" style="display:none; margin-top: 20px;">
-    <h3>Payment Methods</h3>
-    <p>No payment methods saved.</p>
-  </div>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; Avanti Guest House - All rights reserved</p>
+        <br>
+        <p>Website done by <a href="#">Syntax Syndicate</a></p>
+      </div>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="profile.js"></script>
