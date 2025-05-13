@@ -161,3 +161,40 @@ body {
   box-sizing: border-box;
 }
 
+.enquireCatchDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  flex-direction: column;
+  height: 300px; /* adjust height as needed */
+}
+
+.enquire-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px; /* space between buttons */
+  justify-content: center;
+}
+
+.enquire-button {
+  background-color: orange;
+  color: white;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 17px 30px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.enquire-button:hover {
+  background-color: darkorange;
+  transform: scale(1.05);
+}
+
+
