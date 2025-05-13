@@ -4,34 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
+  <link rel="stylesheet" href="/Styling/sharedCSS.css" />
+  <link rel="stylesheet" href="signup.css" />
 </head>
 <body>
   <nav>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="About Us/aboutus.html">About Us</a>
-      <a href="Accomodation/">Accomodation</a>
-      <a href="Things To Do/">Things To Do</a>      
-      <a href="Contact/contact.html">Contact</a>
-      <a href="Booking/booking.html">Book Now</a>
-      <a href="Login/login.html">Login</a>
-      <a href="Profile/profile.html">Profile</a>
+      <a href="../index.html">Home</a>
+      <a href="../About Us/aboutus.html">About Us</a>
+      <a href="../Accomodation/">Accommodation</a>
+      <a href="../Things To Do/">Things To Do</a>      
+      <a href="../Contact/contact.html">Contact</a>
+      <a href="../Booking/booking.html">Book Now</a>
+      <a href="../Login/login.html">Login</a>
+      <a href="../Profile/profile.html">Profile</a>
     </div>
   </nav>
 
-  <h1>Sign Up</h1>
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+    <form id="signup-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="tel" id="phone-number" name="phone-number" required pattern="^\+?[0-9]{10,15}$" placeholder="Phone Number" />
+      <input type="text" id="first-name" placeholder="First Name" required />
+      <input type="text" id="last-name" placeholder="Last Name" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+      <button type="submit">Create Avanti Lodge Account</button>
+    </form>
+    <p>Already have an account? <a href="../Login/login.html">Login</a></p>
+    <div id="message"></div>
+  </div>
 
-  <form id="signup-form">
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="tel" id="phone-number" name="phone-number" required pattern="^\+?[0-9]{10,15}$" placeholder="Phone Number" />
-    <input type="text" id="first-name" placeholder="First Name" required />
-    <input type="text" id="last-name" placeholder="Last Name" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <input type="password" id="confirm-password" placeholder="Confirm Password" required />
-    <button type="submit">Create Avanti Lodge Account</button>
-  </form>
+  <footer class="custom-footer">
+    <div class="footer-content">
+      <p>
+        📞 083 551 7502 | 083 691 0929 <br />
+        📍 19 Hout Street, Vredenburg, 7380 <br />
+        ✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a> <br />
+        🌐 -32.98086069699415, 17.991079832992956
+      </p>
 
-  <div id="message"></div>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; Avanti Guest House - All rights reserved</p>
+        <br>
+        <p>Website done by <a href="#">Syntax Syndicate</a></p>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.27.0/dist/umd/supabase.min.js"></script>
   <script src="signup.js"></script>
 </body>
