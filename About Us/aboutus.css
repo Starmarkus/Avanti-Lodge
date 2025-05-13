@@ -36,27 +36,39 @@
 
 .aboutUsMainContentDiv {
   display: flex;
+  font-size: large;
   flex-direction: column;
   align-items: center;     /* Center horizontally */
   justify-content: center; /* Center vertically */
   padding: 50px;
+  padding-top: 0px;
   gap: 5px;                /* Optional: spacing between elements */
   text-align: center;       /* Optional: center text as well */
 }
 
+.aboutUsMainContentDiv h1 {
+  font-size: 2.5em;
+  margin: 0;
+  padding: 0px;
+}
+
+.aboutUsMainContentDiv h1:hover,
+ .aboutUsMainContentDiv h2:hover {
+  color: #3f5a38;
+}
+
 .aboutUsHostPieceDiv{
     color: white;
-    background-color: grey;
+    background-color: #3f5a38;
     width: 90%;
     padding: 20px;
-
+    text-align: left;
 }
 
-/*
-.aboutUsHostPieceDiv h1,
-.aboutUsHostPieceDiv h2,
-.aboutUsHostPieceDiv p {
-  margin: 0; 
-  padding: 0;
+.aboutUsHostPieceContentDiv{
+  padding: 0px 30px;
 }
-  */
+
+
+
+  
