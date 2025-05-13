@@ -1,8 +1,4 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: teal;
-  }
+
 
   .welcomeDiv{
     min-height: 700px;
@@ -76,6 +72,17 @@ body {
     min-height: 600px;
     padding-left: 50px;
     padding-right: 50px;
+  }
+
+  @media screen and (max-width: 908px) {
+    .indexMainContentDiv {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+     .welcomeDiv{
+    min-height: 400px;
+     }
   }
 
  .avantiGuestLodgeDiv {
@@ -228,6 +235,13 @@ body {
   position: relative;
   background-color: #f8f8f8;
   padding: 10px;
+}
+
+@media screen and (max-width: 908px) {
+  .indexGalleryDiv {
+    height: 350px; /* Adjust for smaller screens */
+  }
+  
 }
 
 .gallery-carousel {
