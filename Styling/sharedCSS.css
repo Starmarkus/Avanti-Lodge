@@ -68,3 +68,53 @@ body {
     background-color: rgba(255, 166, 0, 0.1);
     border-radius: 5px;
   }
+
+
+ @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+.custom-footer {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/Images/IndexWelcomeDivImages/front-of-house.jpg') center/cover no-repeat;
+  color: white;
+  padding: 60px 20px 30px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.footer-content a {
+  color: white;
+  text-decoration: underline;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 20px;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 10px;
+  font-size: 14px;
+  color: #ccc;
+  gap: 25px;
+}
+
+.footer-bottom a {
+  color: #ccc;
+  text-decoration: underline;
+}
