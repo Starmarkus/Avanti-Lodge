@@ -44,7 +44,10 @@
     "/Images/IndexGallery/fireplace.jpg",
     "/Images/IndexGallery/front-of-house-3.jpg",
     "/Images/IndexGallery/garden-view.jpg",
-    "/Images/IndexGallery/inside-of-house.jpg"
+    "/Images/IndexGallery/inside-of-house.jpg",
+    "/Images/IndexGallery/front-oh-house-2.jpg",
+    "/Images/IndexGallery/patio.jpg",
+    "/Images/IndexGallery/putt-putt.jpg"
     // Add more if needed
   ];
   const carouselTrack = document.getElementById("carouselTrack");
