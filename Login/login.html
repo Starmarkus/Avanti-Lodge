@@ -22,37 +22,45 @@
   </nav>
 
   <div class="login-container">
-    <h2>Login</h2>
     <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
+      <h2>Login</h2>
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+
       <button type="submit">Login</button>
+
+      <div id="signup-link">
+        <p>Don't have an account? <a href="../Sign Up/signup.html">Sign up</a></p>
+      </div>
     </form>
-    <p>Don't have an account? <a href="../Sign Up/signup.html">Sign up</a></p>
+
     <div id="message"></div>
   </div>
 
   <footer class="custom-footer">
-  <div class="footer-content">
-    <p>
-      📞 083 551 7502 | 083 691 0929 <br />
-      📍 19 Hout Street, Vredenburg, 7380 <br />
-      ✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a> <br />
-      🌐 -32.98086069699415, 17.991079832992956
-    </p>
+    <div class="footer-content">
+      <p>
+        📞 083 551 7502 | 083 691 0929 <br />
+        📍 19 Hout Street, Vredenburg, 7380 <br />
+        ✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a> <br />
+        🌐 -32.98086069699415, 17.991079832992956
+      </p>
 
-    <div class="social-icons">
-      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-    </div>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
 
-    <div class="footer-bottom">
-      <p>&copy; Avanti Guest House - All rights reserved</p>
-      <br>
-      <p>Website done by <a href="#">Syntax Syndicate</a></p>
+      <div class="footer-bottom">
+        <p>&copy; Avanti Guest House - All rights reserved</p>
+        <br>
+        <p>Website done by <a href="#">Syntax Syndicate</a></p>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="login.js"></script>

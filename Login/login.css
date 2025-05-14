@@ -1,56 +1,84 @@
-/* Reset some basic styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
-  height: 100vh;
-}
+/* login.css */
 
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 80px);
+  min-height: calc(100vh - 160px); /* accounts for nav + footer */
+  padding: 2rem;
+  background-image: url('../Images/IndexGallery/front-of-house-3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-container h2 {
+  margin-bottom: 1rem;
+  color: #3f5a38;
   text-align: center;
 }
 
-h2 {
-  margin-bottom: 1rem;
-}
-
-form {
+#login-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 300px;
-  background-color: white;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-input {
-  padding: 0.8rem;
-  border: 1px solid #ccc;
+#login-form input {
+  padding: 0.75rem;
+  border: 1px solid black;
   border-radius: 8px;
   font-size: 1rem;
 }
 
-button {
-  padding: 0.8rem;
+#login-form input:focus {
+  outline: none;
+  border: 2px solid #edb52c;
+}
+
+#login-form button {
   background-color: #edb52c;
   color: white;
   border: none;
-  border-radius: 8px;
+  padding: 0.75rem;
   font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #3f5a38;  
+#login-form button:hover {
+  background-color: #3f5a38;
+}
+
+#signup-link {
+  text-align: center;
+}
+
+#signup-link p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+#signup-link a {
+  font-weight: bold;
+  color: #edb52c;
+  text-decoration: none;
+}
+
+#signup-link a:hover {
+  color: #3f5a38;
+}
+
+#signup-link a:visited {
+  color: #edb52c;
 }
 
 #message {
@@ -58,6 +86,8 @@ button:hover {
   color: red;
 }
 
-p {
-  margin-top: 1rem;
+@media (max-width: 600px) {
+  .login-container {
+    padding: 1rem;
+  }
 }
