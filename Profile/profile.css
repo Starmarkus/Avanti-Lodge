@@ -1,83 +1,229 @@
+/* General Page Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
   margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('../Images/IndexGallery/garden-view.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Profile Container */
 .profile-container {
-  max-width: 600px;
-  margin: 3rem auto;
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+  margin: 5rem auto;
+  background-color: rgba(255, 255, 255, 0.92);
+  border-radius: 10px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-h2 {
+/* Header */
+.profile-container h2 {
   text-align: center;
   color: #3f5a38;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .tab-btn {
+  flex: 1;
+  margin: 0 0.2rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
   background-color: #edb52c;
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.tab-btn:hover {
+.tab-btn:hover,
+.tab-btn.active {
   background-color: #3f5a38;
 }
 
+/* Tab Content */
 .tab-content {
-  padding-top: 1rem;
+  display: none;
 }
 
-label {
+.tab-content.active {
   display: block;
-  margin: 0.6rem 0 0.3rem;
-  font-weight: bold;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
+/* Form */
+form label {
+  display: block;
+  font-weight: 600;
+  margin: 0.8rem 0 0.3rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"] {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+  padding: 0.65rem;
+  border: 1px solid black;
   border-radius: 6px;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
 }
 
+form input[type="text"]:focus,
+  form input[type="email"]:focus,
+  form input[type="tel"]:focus {
+  outline: none;
+  border: 2px solid #edb52c;
+  box-shadow: 0 0 5px rgba(237, 181, 44, 0.5);
+}
+
+/* Buttons */
 .form-buttons {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 button {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
   background-color: #edb52c;
   color: white;
   border: none;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #3f5a38;
+}
+
+/* Form Message */
+#formMessage {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  color: green;
+}
+
+/* Footer */
+.custom-footer {
+  margin-top: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.custom-footer a {
+  color: #edb52c;
+  text-decoration: none;
+}
+
+.custom-footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.social-icons a {
+  margin: 0 0.5rem;
+  color: #edb52c;
+  font-size: 1.2rem;
+}
+
+.social-icons a:hover {
+  color: white;
+}
+
+/* Form Layout Wrapper */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  align-self: flex-start;
+  font-weight: 600;
+  margin: 0.8rem 0 0.3rem;
+}
+
+.form-group input {
+  width: 100%;
+  max-width: 474px;
+  padding: 0.65rem;
+  border: 1px solid black;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input:focus {
+  outline: none;
+  border: 2px solid #edb52c;
+  box-shadow: 0 0 5px rgba(237, 181, 44, 0.5);
+}
+
+/* Buttons Match Input Width */
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-buttons button {
+  width: 100%;
+  max-width: 500px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #edb52c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tab-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
 }

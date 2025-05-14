@@ -66,7 +66,7 @@ form.addEventListener('submit', async (e) => {
     console.error('Error updating profile:', error);
     alert("Failed to save changes.");
   } else {
-    alert("Profile updated successfully!");
+    document.getElementById('formMessage').textContent = 'Profile updated successfully!';
   }
 
   Object.values(inputs).forEach(input => input.disabled = true);
@@ -82,12 +82,12 @@ editBtn.addEventListener('click', () => {
 });
 
 // Tab switching
-function showTab(tabId) {
-  document.getElementById('personal').style.display = 'none';
-  document.getElementById('bookings').style.display = 'none';
-  document.getElementById('payments').style.display = 'none';
+function showTab(event, tabId) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.getElementById(tabId).style.display = 'block';
+  event.target.classList.add('active');
 }
 
-// Load on page start
+// Load profile on page load
 loadProfile();

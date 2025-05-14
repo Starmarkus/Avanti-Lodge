@@ -10,15 +10,22 @@
 <body>
 
   <nav>
-    <div class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../About Us/aboutus.html">About Us</a>
-      <a href="../Accomodation/">Accommodation</a>
-      <a href="../Things To Do/">Things To Do</a>      
-      <a href="../Contact/contact.html">Contact</a>
-      <a href="../Booking/booking.html">Book Now</a>
-      <a href="../Login/login.html">Login</a>
-      <a href="../Profile/profile.html">Profile</a>
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="/Images/logo.png" alt="Avanti Logo" />
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="/About Us/aboutus.html">About Us</a>
+        <a href="Accomodation/">Accomodation</a>
+        <a href="/Things To Do/Activities/activities.html">Things To Do</a>      
+        <a href="/Contact/contact.html">Contact</a>
+        <a href="Booking/booking.html">Book Now</a>
+        <a href="Login/login.html">Login</a>
+        <a href="Profile/profile.html">Profile</a>
+      </div>
     </div>
   </nav>
 
@@ -26,30 +33,39 @@
     <h2>User Profile</h2>
 
     <div class="tabs">
-      <button onclick="showTab('personal')" class="tab-btn">Personal Details</button>
-      <button onclick="showTab('bookings')" class="tab-btn">Bookings</button>
-      <button onclick="showTab('payments')" class="tab-btn">Payment Methods</button>
+      <button onclick="showTab(event, 'personal')" class="tab-btn active">Personal Details</button>
+      <button onclick="showTab(event, 'bookings')" class="tab-btn">Bookings</button>
+      <button onclick="showTab(event, 'payments')" class="tab-btn">Payment Methods</button>
     </div>
 
     <div id="personal" class="tab-content">
       <form id="profileForm">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" disabled />
+  <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" disabled />
+  </div>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" disabled />
+  <div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" disabled />
+  </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" disabled />
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" disabled />
+  </div>
 
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" disabled />
+  <div class="form-group">
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" disabled />
+  </div>
 
-        <div class="form-buttons">
-          <button type="button" id="editBtn">Edit</button>
-          <button type="submit" id="saveBtn" style="display:none;">Save</button>
-        </div>
-      </form>
+  <div class="form-buttons">
+    <button type="button" id="editBtn">Edit</button>
+    <button type="submit" id="saveBtn" style="display:none;">Save</button>
+  </div>
+</form>
+
     </div>
 
     <div id="bookings" class="tab-content" style="display:none;">
@@ -62,6 +78,8 @@
       <p>No payment methods saved.</p>
     </div>
   </div>
+
+  <div id="formMessage" style="margin-top: 1rem; color: green;"></div>
 
   <footer class="custom-footer">
     <div class="footer-content">
@@ -79,7 +97,6 @@
 
       <div class="footer-bottom">
         <p>&copy; Avanti Guest House - All rights reserved</p>
-        <br>
         <p>Website done by <a href="#">Syntax Syndicate</a></p>
       </div>
     </div>
