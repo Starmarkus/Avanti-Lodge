@@ -39,35 +39,79 @@ body {
     font-family: Arial, sans-serif;
   }
 
-  nav {
-    position: sticky;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.1); /* transparent white */
-    backdrop-filter: blur(30px); /* optional blur effect for modern look */
-    padding: 20px 20px;
-    z-index: 1000;
-  }
+/* Ensure all nav children are treated equally */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adjust spacing between items */
+}
 
-  .nav-links {
-    display: flex;
-    justify-content: flex-end; /* aligns to the right */
-    gap: 15px; /* spacing between items */
-  }
+/* Make the dropdown behave like a link */
+.nav-links .dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-  .nav-links a {
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    padding: 10px 10px;
-    transition: background 0.3s;
-  }
+.nav-links .dropbtn {
+  font-style: italic;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: center;
+}
 
-  .nav-links a:hover {
-    color: rgb(7, 83, 39);
-    background-color: rgba(255, 166, 0, 0.1);
-    border-radius: 5px;
-  }
+/* Optional: hover style to match links */
+.nav-links .dropbtn:hover {
+  color: #007BFF;
+}
 
+/* Position the dropdown list */
+.nav-links .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.nav-links .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style for dropdown links */
+.nav-links .dropdown-content a {
+  padding: 12px 16px;
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-links .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 
 .custom-footer {
