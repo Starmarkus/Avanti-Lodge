@@ -1,20 +1,20 @@
 // Unique image sets per carousel
 const imagePaths1 = [
-  "/Images/IndexGallery/bedroom.jpg",
-  "/Images/IndexGallery/fireplace.jpg",
-  "/Images/IndexGallery/front-of-house-3.jpg"
+  "/Images/EatOutImages/food-with-drink.jpg",
+  "/Images/EatOutImages/milkshakes.jpg",
+  "/Images/EatOutImages/pat-resturant-seats-landscape.jpg"
 ];
 
 const imagePaths2 = [
-  "/Images/IndexGallery/garden-view.jpg",
-  "/Images/IndexGallery/inside-of-house.jpg",
-  "/Images/IndexGallery/front-oh-house-2.jpg"
+  "/Images/EatOutImages/fruits-with-seeds.jpg",
+  "/Images/EatOutImages/pat-lodge-sign.jpg",
+  "/Images/EatOutImages/muslie.jpg"
 ];
 
 const imagePaths3 = [
-  "/Images/IndexGallery/patio.jpg",
-  "/Images/IndexGallery/putt-putt.jpg",
-  "/Images/IndexGallery/sunset-deck.jpg"
+  "/Images/EatOutImages/indoor-seating-in-sun.jpg",
+  "/Images/EatOutImages/pizza-with-toppings.jpg",
+  "/Images/EatOutImages/outdoor-seating.jpg"
 ];
 
 // Populate Carousel 1
