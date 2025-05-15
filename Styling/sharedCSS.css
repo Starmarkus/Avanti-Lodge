@@ -39,12 +39,36 @@ body {
     font-family: Arial, sans-serif;
   }
 
-/* Ensure all nav children are treated equally */
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Adjust spacing between items */
-}
+
+   nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.1); /* transparent white */
+    backdrop-filter: blur(30px); /* optional blur effect for modern look */
+    padding: 20px 20px;
+    z-index: 1000;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: flex-end; /* aligns to the right */
+    gap: 15px; /* spacing between items */
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    padding: 10px 10px;
+    transition: background 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: rgb(7, 83, 39);
+    background-color: rgba(255, 166, 0, 0.1);
+    border-radius: 5px;
+  }
+
 
 /* Make the dropdown behave like a link */
 .nav-links .dropdown {
@@ -66,7 +90,7 @@ body {
 
 /* Optional: hover style to match links */
 .nav-links .dropbtn:hover {
-  color: #007BFF;
+  color: darkgreen;
 }
 
 /* Position the dropdown list */
