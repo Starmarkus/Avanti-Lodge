@@ -90,7 +90,7 @@ body {
 
 /* Optional: hover style to match links */
 .nav-links .dropbtn:hover {
-  color: darkgreen;
+  color: rgb(7, 83, 39);
 }
 
 /* Position the dropdown list */
