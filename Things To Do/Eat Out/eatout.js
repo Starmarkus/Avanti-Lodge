@@ -2,19 +2,24 @@
 const imagePaths1 = [
   "/Images/EatOutImages/food-with-drink.jpg",
   "/Images/EatOutImages/milkshakes.jpg",
-  "/Images/EatOutImages/pat-resturant-seats-landscape.jpg"
+  "/Images/EatOutImages/pat-resturant-seats-landscape.jpg",
+  "Images/EatOutImages/plate-of-food-in-sun.jpg",
+  "Images/EatOutImages/pat-resturant-outside-seating.jpg",
+  "Images/EatOutImages/seafood-platter.jpg"
 ];
 
 const imagePaths2 = [
   "/Images/EatOutImages/fruits-with-seeds.jpg",
   "/Images/EatOutImages/pat-lodge-sign.jpg",
-  "/Images/EatOutImages/muslie.jpg"
+  "/Images/EatOutImages/muslie.jpg",
+  "Images/EatOutImages/wine-and-food.jpg"
 ];
 
 const imagePaths3 = [
   "/Images/EatOutImages/indoor-seating-in-sun.jpg",
   "/Images/EatOutImages/pizza-with-toppings.jpg",
-  "/Images/EatOutImages/outdoor-seating.jpg"
+  "/Images/EatOutImages/outdoor-seating.jpg",
+  "Images/EatOutImages/romantical-seating.jpg"
 ];
 
 // Populate Carousel 1
