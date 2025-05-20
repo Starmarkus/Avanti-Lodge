@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and viewport setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- Page title -->
+  <title>Home</title>
+
+  <!-- Linking to page-specific and shared CSS stylesheets -->
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="galleryTest.css" />
+  <script src="galleryTest.js" defer></script>
+</head>
+<body>
+
+  <!-- Navigation bar with links to other pages of the website -->
+  <nav>
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="/Images/logo.png" alt="Avanti Logo" />
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/index.html">Home</a>
+        <a href="/About Us/aboutus.html">About Us</a>
+        <div class="dropdown">
+          <a href="Accomodation/" class="dropbtn">Accommodation</a>
+          <div class="dropdown-content">
+            <a href="/Accomodation/Standard Rooms/standardrooms.html">Standard Room</a>
+            <a href="/Accomodation/Self Catering/selfcatering.html">Self Catering</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="Things To Do/" class="dropbtn">Things To Do</a>
+          <div class="dropdown-content">
+            <a href="/Things To Do/Activities/activities.html">Activities</a>
+            <a href="/Things To Do/Eat Out/eatout.html">Eat Out</a>
+            <a href="/Things To Do/Out and About/outandabout.html">Out And About</a>
+          </div>
+        </div>
+        <a href="/Contact/contact.html">Contact</a>
+        <a href="/Booking/booking.html">Book Now</a>
+        <a href="/Login/login.html">Login</a>
+        <a href="/Profile/profile.html">Profile</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero section with fading background effect -->
+  <div class="welcomeDiv">
+    <!-- Background images for fader animation -->
+    <div class="background-fader" id="bg1"></div>
+    <div class="background-fader" id="bg2"></div>
+  </div>
+
+  <!-- Slogan or catchphrase section -->
+  <div class="sloganCatchDiv">
+    <h1>
+      Experience the Beauty of the West Coast
+    </h1>
+  </div>
+
+  <!-- Main content container for the homepage -->
+  <div class="indexMainContentDiv">
+
+    <!-- About section describing the guest lodge -->
+    <div class="avantiGuestLodgeDiv">
+      <h1>Avanti Guest Lodge</h1>
+      <h2> Old World Charm West Coast Accommodation</h2>
+      <p>
+        <!-- Introductory paragraph detailing location, features, and ambiance -->
+        Discover serenity at our enchanting retreat in Vredenburg, surrounded by charming fishing villages and powered by sustainable solar energy, ensuring uninterrupted bliss without the hassle of load shedding. All our units are fitted with aircons to ensure maximum comfort. Immerse yourself in the warmth of old-world hospitality while enjoying modern amenities, including a swimming pool and organic vegetable garden.
+        <br><br>
+        Escape the hustle and bustle as you unwind in our spacious garden, complete with team-building activities like putt-putt and a chess area. Embrace relaxation amid the tranquil ambiance, far from the distractions of traffic and city life. Our West Coast accommodation gem offers a harmonious blend of comfort and coastal allure.
+        <br><br>
+        Experience the joy of camaraderie with friends and family with our cornhole area and oversized Jenga blocks, perfect for memorable gatherings. At our property, every moment is an opportunity to connect with nature and indulge in leisure.
+      </p>
+
+      <!-- Subsection introducing the host -->
+      <h2>Your Host</h2>
+      <p style="padding-left: 50px; padding-right: 50px;">
+        Welcome to Avanti Guest Lodge, where we invite you to make our charming abode your home away from home. Immerse yourself in the allure of old-world charm and experience absolute tranquility as you discover the West Coast in a way you’ve never seen before. 
+        <br>– Mario Müller
+      </p>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="indexGalleryDiv">
+      <div class="gallery">
+        <div class="main-image">
+          <div class="text-overlay">
+            <h1>FACE-TO-FACE SHARK ENCOUNTERS</h1>
+            <p>A shark cage diving experience is unforgettable, which is why you'll only want to share it with those closest to you. Charter an entire boat for undivided viewing time, and learn about the habits of the undersea predators from your dedicated marine biologist.</p>
+          </div>
+        </div>
+        <div class="navigation">
+          <button class="nav-button">&lt;</button>
+          <button class="nav-button">&gt;</button>
+        </div>
+        <div class="thumbnails">
+          <div class="thumbnail active">
+            <img src="https://source.unsplash.com/random/300x200?shark" alt="Shark Cage Diving">
+            <div class="thumbnail-caption">SHARK CAGE DIVING</div>
+          </div>
+          <div class="thumbnail">
+            <img src="https://source.unsplash.com/random/300x200?botanical" alt="Botanical 4x4 Tour">
+            <div class="thumbnail-caption">BOTANICAL 4X4 TOUR</div>
+          </div>
+          <div class="thumbnail">
+            <img src="https://source.unsplash.com/random/300x200?safari" alt="Coastal Safari">
+            <div class="thumbnail-caption">COASTAL SAFARI</div>
+          </div>
+          <div class="thumbnail">
+            <img src="https://source.unsplash.com/random/300x200?wellbeing" alt="Immersive Wellbeing">
+            <div class="thumbnail-caption">IMMERSIVE WELL BEING</div>
+          </div>
+        </div>
+        <div class="pagination">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section for quick access to room types and experiences -->
+    <div class="roomBlockSelectionWrapper">
+      <!-- Each anchor tag represents a clickable banner linking to another section/page -->
+      <a href="/Accomodation/Standard Rooms/standardrooms.html" class="roomSelectionBanner" style="background-image: url('images/IndexWelcomeDivImages/bag-on-bed.jpg');">
+        <h3>Standard Room</h3>
+      </a>
+      <a href="/Accomodation/Self Catering/selfcatering.html" class="roomSelectionBanner" style="background-image: url('images/IndexWelcomeDivImages/bag-on-bed.jpg');">
+        <h3>Self Catering</h3>
+      </a>
+      <a href="/Things To Do/Activities/activities.html" class="roomSelectionBanner" style="background-image: url('images/IndexWelcomeDivImages/golf-corse.jpg');">
+        <h3>Team Building</h3>
+      </a>
+      <a href="/Things To Do/Out and About/outandabout.html" class="roomSelectionBanner" style="background-image: url('images/IndexWelcomeDivImages/front-of-house.jpg');">
+        <h3>Out and About</h3>
+      </a>
+      <a href="/Things To Do/Eat Out/eatout.html" class="roomSelectionBanner" style="background-image: url('images/IndexWelcomeDivImages/wineglasses.jpg');">
+        <h3>Eat Out</h3>
+      </a>
+    </div>
+  </div>
+  
+  <div class="enquireCatchDiv">
+  <div>
+    <h1>Enjoy the warmth of our hospitality</h1>
+    <div class="enquire-buttons">
+      <a href="/Contact/contact.html" class="enquire-button">Enquire</a>
+      <a href="/Booking/booking.html" class="enquire-button">Book With Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="indexMainContentDiv">
+  <div class="avantiGuestLodgeDiv">
+    <h2>Modern Elegance in a Serene Setting</h2>
+    <p>
+      Nestled in the heart of Vredenburg, Avanti Lodge stands as a beacon of modern elegance against the breathtaking backdrop of the West Coast. 
+      <br>Our lodge is meticulously designed to offer a perfect blend of comfort, style, and functionality, providing guests with a home away from home.
+    </p>
+
+  <div class="section-border">
+    <h3>Self-Catering Bliss</h3>
+    <p>
+      For families seeking a memorable getaway, our self-catering accommodation options are tailored to meet your every need. 
+      <br>Avanti Lodge boasts spacious and well-equipped apartments, ensuring a seamless and enjoyable stay for large families. Revel in the convenience of a fully-equipped kitchen, allowing you to prepare and savor delicious meals together.
+    </p>
+    <div class="newspapaerColumnDiv1">
+      <div class="newspapaerColumnDiv1Content">
+        <h3>Business Travel Redefined</h3>
+        <p>
+          Avanti Lodge understands the unique needs of today’s business professionals. Our executive suites and corporate packages are designed to provide a haven for travelers on business. 
+          <br>Enjoy a seamless blend of modern amenities, professional services, and a quiet ambiance, allowing you to focus on your work while experiencing the utmost comfort.
+        </p>
+
+        <h3>Unparalleled Amenities</h3>
+        <p>
+          Avanti Lodge takes pride in offering a range of amenities that cater to both families and business travelers alike. 
+          <br>From high-speed Wi-Fi and ergonomic workspaces for professionals to a play area for children and BBQ facilities for families, we ensure that every guest experiences unparalleled comfort and convenience.
+        </p>
+      </div>
+      <div class="newspapaerColumnDivImage">
+      </div>
+    </div>
+  </div>
+    <h3>Gallery of Memories</h3>
+    <p>
+      Planning an Easter getaway? Avanti Lodge invites you to celebrate the holiday in style. Our special Easter packages cater to families and business travelers alike. Immerse yourself in the tranquility of the West Coast while enjoying the comforts of our modern lodge.
+    </p>
+  </div>
+</div>
+
+<footer class="custom-footer">
+  <div class="footer-content">
+    <p>
+      📞 083 551 7502 | 083 691 0929 <br />
+      📍 19 Hout Street, Vredenburg, 7380 <br />
+      ✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a> <br />
+      🌐 -32.98086069699415, 17.991079832992956
+    </p>
+
+    <div class="social-icons">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; Avanti Guest House - All rights reserved</p>
+      <br>
+      <p>Website done by <a href="#">Syntax Syndicate</a></p>
+    </div>
+  </div>
+</footer>
+
+  <!-- JavaScript file for dynamic behavior like background transitions -->
+  <script src="index.js"></script>
+
+</body>
+</html>
