@@ -7,6 +7,16 @@
   padding : 20px;
 }
 
+
+
+.aboutUsContentContainerDiv{
+display: flex;
+flex-direction: column;
+padding: 0px 150px;
+}
+
+
+
 .aboutUsSideGalleryDiv {
   background-color: black;
   min-width: 32%;
@@ -34,16 +44,28 @@
   z-index: 1;
 }
 
+.aboutUsMainContentHeaderDiv{
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+}
+
 .aboutUsMainContentDiv {
   display: flex;
-  font-size: large;
   flex-direction: column;
-  align-items: center;     /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  padding: 50px;
-  padding-top: 0px;
-  gap: 5px;                /* Optional: spacing between elements */
-  text-align: center;       /* Optional: center text as well */
+  align-items: stretch;       /* 👈 Ensures children stretch full width */
+  justify-content: center;
+  /*padding: 0 100px;  */         /* Keeps your existing side padding */
+  gap: 20px;                  /* Adds clear spacing between sections */
+  text-align: left;           /* 👈 Aligns all text to the left uniformly */
+  width: 100%;
+  box-sizing: border-box;     /* 👈 Ensures padding is included in width */
+}
+
+.aboutUsMainContentDiv p {
+  margin: 0 0 20px 0;
+  line-height: 1.6;
 }
 
 .aboutUsMainContentDiv h1 {
@@ -58,21 +80,22 @@
 }
 
 .aboutUsHostPieceDiv{
-    color: white;
-    background-color: #3f5a38;
-    width: 90%;
-    padding: 20px;
+  color: #3f5a38;
+  width: 100%;
+ /*   padding: 0 100px; */
+    padding-top: 40px;
+    padding-bottom: 40px;
     text-align: left;
 }
 
 .aboutUsHostPieceDiv h1:hover,
  .aboutUsHostPieceDiv h2:hover{
-  color: white;
+  color: black;
  }
 
-.aboutUsHostPieceContentDiv{
-  padding: 0px 30px;
-}
+ 
+
+
 
 
 
