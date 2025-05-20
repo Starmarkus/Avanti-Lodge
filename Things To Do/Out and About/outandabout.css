@@ -40,7 +40,10 @@
   background-color: white;
   min-height: 70vh;
   padding: 70px;
+  width: 100%;
 }
+
+
 
 .outAndAboutBannerDiv {
   width: 47%;

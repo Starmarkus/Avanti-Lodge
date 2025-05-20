@@ -66,18 +66,16 @@
   align-items: center; /* or center if you want it centered horizontally */
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 120px;
+  padding-right: 120px;
   gap: 10px; /* space between items */
 }
 
 .avantiGuestLodgeDiv h1,
 .avantiGuestLodgeDiv h2,
 .avantiGuestLodgeDiv p {
-  margin: 0; /* optional: remove default margins */
-  padding: 0;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .roomBlockSelectionWrapper {
@@ -190,10 +188,12 @@
 
 .newspapaerColumnDiv1Content{
   width: 49%;
+  margin-right: 10px;
 }
 
 .newspapaerColumnDivImage {
   width: 49%;
+  margin-left: 10px;
   height: auto; /* Let the height adapt to the container or define a fixed height if needed */
   min-height: 300px; /* You can adjust this */
   background-image: url('/Images/IndexWelcomeDivImages/bag-on-bed.jpg');
@@ -203,13 +203,20 @@
   border-radius: 5px; /* Optional: adds rounded corners */
 }
 
+.indexGalleryContainerDiv{
+  align-items: center;
+  justify-items: center;
+  border-radius: 10px;
+}
+
 .indexGalleryDiv {
-  width: 100%;
+  width: 98%;
   height: 500px; /* Adjust as needed */
   overflow: hidden;
   position: relative;
   background-color: #f8f8f8;
   padding: 10px;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 908px) {
@@ -223,6 +230,7 @@
   display: flex;
   height: 100%;
   align-items: center;
+  border-radius: 5px;
 }
 
 .carousel-track {
@@ -230,6 +238,7 @@
   gap: 5px;
   height: 100%;
   animation: scrollGallery 150s linear infinite;
+  border-radius: 5px;
 }
 
 .carousel-track img {
