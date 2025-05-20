@@ -91,3 +91,18 @@ function showTab(event, tabId) {
 
 // Load profile on page load
 loadProfile();
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tabButton = document.querySelector('.tab-btn[onclick*="personal"]'); // ✅ Matches actual value
+  const tabContent = document.getElementById('personal'); // ✅ Matches actual id
+
+  if (tabButton && tabContent) {
+    // Mark the tab as active
+    tabButton.classList.add('active');
+
+    // Hide all other tabs and show only personal details
+    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+    tabContent.style.display = 'block';
+  }
+});
+
