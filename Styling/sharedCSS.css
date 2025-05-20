@@ -137,13 +137,18 @@ a {
   color: inherit;
 }
 
-
 .custom-footer {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
               url('/Images/IndexWelcomeDivImages/front-of-house.jpg') center/cover no-repeat;
   color: white;
   padding: 60px 20px 30px;
   text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px 30px;
 }
 
 .footer-content p {
@@ -183,6 +188,58 @@ a {
 .footer-bottom a {
   color: #ccc;
   text-decoration: underline;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* centers content */
+  gap: 40px; /* reduces space between columns */
+  margin: 20px auto;
+  text-align: left;
+  max-width: 1000px; /* keeps content nicely grouped */
+}
+
+.footer-section {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #FFD700;
+}
+
+.footer-section p,
+.footer-section ul,
+.footer-section li {
+  font-size: 15px;
+  line-height: 1.6;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px 0;
+}
+
+.footer-section a {
+  color: white;
+  text-decoration: underline;
+}
+
+.footer-section ul {
+  padding-left: 0;
+}
+
+@media (max-width: 768px) {
+  .footer-columns {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
+  }
 }
 
 .navbar-container {
