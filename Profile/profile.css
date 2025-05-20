@@ -147,9 +147,22 @@ button:hover {
   color: white;
 }
 
-.footer-content a {
-  color: white; /* Yellow links */
-  text-decoration: underline;
+/* Footer links - no underline, white default, yellow and bold on hover */
+.footer-content a,
+.footer-bottom a,
+.footer-section a,
+.social-icons a {
+  color: white;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.footer-content a:hover,
+.footer-bottom a:hover,
+.footer-section a:hover,
+.social-icons a:hover {
+  color: #EDB52C;
 }
 
 .social-icons {
@@ -157,12 +170,11 @@ button:hover {
 }
 
 .social-icons a {
-  color: #EDB52C; /* Yellow icons */
   font-size: 20px;
   margin: 0 10px;
-  text-decoration: none;
 }
 
+/* Footer bottom */
 .footer-bottom {
   display: flex;
   justify-content: center;
@@ -175,17 +187,11 @@ button:hover {
   gap: 25px;
 }
 
-.footer-bottom a {
-  color: white;
-  text-decoration: underline;
-}
-
 .footer-columns {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
-  margin: 20px auto;
   text-align: left;
   max-width: 1500px;
 }
@@ -196,9 +202,10 @@ button:hover {
 }
 
 .footer-section h4 {
-  font-size: 18px;
+  font-size: 30px;
   margin-bottom: 10px;
   color: #EDB52C; /* Yellow headings */
+  text-decoration: underline;  /* Added underline */
 }
 
 .footer-section p,
@@ -212,25 +219,8 @@ button:hover {
   color: white; /* Khaki text */
 }
 
-.footer-section a {
-  color: #EDB52C;
-  text-decoration: underline;
-}
-
 .footer-section ul {
   padding-left: 0;
-}
-
-@media (max-width: 768px) {
-  .footer-columns {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-section {
-    margin-bottom: 20px;
-  }
 }
 
 /* Form Layout Wrapper */
@@ -287,7 +277,6 @@ button:hover {
   transition: background-color 0.3s ease;
 }
 
-
 /* Responsive */
 @media (max-width: 600px) {
   .tab-btn {
@@ -297,5 +286,17 @@ button:hover {
 
   .form-buttons {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-columns {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 20px;
   }
 }
