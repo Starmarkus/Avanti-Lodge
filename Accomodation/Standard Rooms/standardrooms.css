@@ -2,7 +2,7 @@
 
 .welcomeDiv {
   position: relative;
-  height: 80vh;
+  height: 60vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -37,26 +37,26 @@
 .welcome-text h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
-  color: #edb52c;
+  color: white;
   text-align: center;
 }
 
 .welcome-text p {
   font-size: 1.5rem;
-  color: #edb52c;
+  color: white;
   text-align: center;
 }
 
 .welcome-text-box {
-  background-color: #3f64369d;
+  background-color: #1A2619;
   padding: 2rem 3rem;
-  border-radius: 0;
-  width: 100%;
-  margin: 0;
-  z-index: 1;
+  max-width: 1500px;
+  margin: 2rem auto 0 auto;
+  color: #edb52c;
+  text-align: center;
+  position: relative;
+  z-index: auto;
 }
-
-
 
 .info-section, .split-section, .features-section, .overlay-section, .image-gallery-section {
   padding: 2rem;
@@ -65,12 +65,28 @@
   text-align: center;
 }
 
+.features-section h2,
+.features-section h3 {
+  color: #1A2619;
+}
+
 .split-section {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   align-items: center;
   justify-content: center;
+  background-color: #C2BAA5;
+  padding: 2rem;
+}
+
+.split-text h1,
+.split-text h2,
+.split-text h3,
+.split-text h4,
+.split-text h5,
+.split-text h6 {
+  color: #1A2619; /* Dark Green headings */
 }
 
 .split-image img {
@@ -128,39 +144,19 @@
 .gallery-heading {
   margin-bottom: 1rem;
   font-size: 2rem;
-  color: #333;
-}
-
-.custom-footer {
-  background-color: #333;
-  color: white;
-  padding: 2rem;
-  text-align: center;
-}
-
-.footer-content a {
-  color: #fff;
-  text-decoration: underline;
-}
-
-.social-icons a {
-  color: white;
-  margin: 0 0.5rem;
-  font-size: 1.5rem;
-}
-
-.footer-bottom {
-  margin-top: 1rem;
-  font-size: 0.9rem;
+  color: #1A2619;
 }
 
 .cta-booking {
-  background-color: #3f5a38;
+  background-color: #1A2619;
   color: white;
   text-align: center;
   padding: 3rem 2rem;
   margin-top: 2rem;
   margin-bottom: 4rem;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-booking h2 {
@@ -177,7 +173,7 @@
 
 .booking-button {
   background-color: #edb52c;
-  color: #3f5a38;
+  color: #1A2619;
   border-radius: 8px;
   padding: 0.8rem 1.5rem;
   text-decoration: none;

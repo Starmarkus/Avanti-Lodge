@@ -1,14 +1,8 @@
-document.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-    const url = this.getAttribute('href');
-    fetch(url)
-      .then(res => res.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        document.getElementById('page-container').innerHTML = doc.getElementById('page-container').innerHTML;
-        history.pushState(null, '', url);
-      });
+  window.addEventListener('scroll', function () {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 10) {
+      nav.classList.add('scroll-active');
+    } else {
+      nav.classList.remove('scroll-active');
+    }
   });
-});
