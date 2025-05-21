@@ -93,7 +93,52 @@ padding: 0px 150px;
   color: black;
  }
 
- 
+  @media (max-width: 1650px) {
+  .aboutUsContainerDiv {
+    flex-direction: column;
+    padding: 35px; /* Optional: reduce horizontal padding for small screens */
+  }
+
+  .aboutUsContentContainerDiv {
+    padding:  75px; /* Optional: reduce horizontal padding for small screens */
+  }
+
+  .aboutUsSideGalleryDiv {
+    flex-direction: row;
+    min-width: 100%; /* Ensure it spans full width */
+    overflow-x: auto; /* Optional: horizontal scroll if needed */
+    gap: 0px; /* Optional: spacing between images */
+  }
+
+  .aboutUsSideGalleryComponentDiv {
+    aspect-ratio: 1 / 1; /* Makes images square in a row layout */
+    flex: 1; /* Makes images share space equally */
+  }
+}
+
+ @media (max-width: 1010px) {
+  .aboutUsContainerDiv {
+    flex-direction: column;
+    padding: 10px; /* Optional: reduce horizontal padding for small screens */
+  }
+
+  .aboutUsContentContainerDiv {
+    padding: 20px; /* Optional: reduce horizontal padding for small screens */
+  }
+
+  .aboutUsSideGalleryDiv {
+    flex-direction: row;
+    min-width: 100%; /* Ensure it spans full width */
+    overflow-x: auto; /* Optional: horizontal scroll if needed */
+    gap: 0px; /* Optional: spacing between images */
+  }
+
+  .aboutUsSideGalleryComponentDiv {
+    aspect-ratio: 1 / 1.25; /* Makes images square in a row layout */
+    flex: 1; /* Makes images share space equally */
+  }
+}
+
 
 
 
