@@ -228,7 +228,7 @@ nav {
 }
 
 nav.scroll-active {
-  background-color: rgba(0, 0, 0, 0.116); /* semi-transparent dark green */
+  background-color: rgba(0, 0, 0, 0.226); /* semi-transparent dark green */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
