@@ -149,6 +149,77 @@ nav {
   color: #EDB52C;
 }
 
+
+/* Default: hide mobile-only, show desktop */
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+/* For screen widths 1010px and below */
+@media screen and (max-width: 1010px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* Burger styles (same as before) */
+.burger-button {
+  font-size: 24px;
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.burger-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 10;
+  flex-direction: column;
+}
+
+.burger-dropdown a {
+  padding: 12px 16px;
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+.burger-dropdown a:hover {
+  background-color: #ddd;
+}
+
+
+/* Show burger on small screens, hide normal dropdowns */
+@media screen and (max-width: 1010px) {
+  .dropdown:nth-child(1),
+  .dropdown:nth-child(2),
+  .dropdown:nth-child(3) {
+    display: none; /* Hide About Us, Accommodation, Things To Do */
+  }
+
+  .burger-menu {
+    display: block; /* Show burger */
+  }
+}
+
+
+
+
+
 .logo img {
   height: 60px;
   padding: 5px;

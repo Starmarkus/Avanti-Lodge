@@ -61,10 +61,16 @@
     
   }
 
-  @media screen and (max-width: 908px) {
+
+
+  @media screen and (max-width: 1008px) {
+
+    .indexContainerDiv{
+      padding: 0%;
+    }
+
     .indexMainContentDiv {
-      padding-left: 5px;
-      padding-right: 5px;
+      width: 95%;
     }
 
      .welcomeDiv{
