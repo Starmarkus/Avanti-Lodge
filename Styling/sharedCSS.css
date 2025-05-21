@@ -1,19 +1,22 @@
+/* Lato */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 h1 {
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 
 h2, h3{
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 h4, h5, h6 {
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 700;
   font-style: italic;
 }
@@ -25,9 +28,8 @@ p {
 }
 
 a {
-  font-family: "Lato", sans-serif;
-  font-weight: 300;
-  font-style: italic;
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 500;
 }
 
 body {
@@ -91,9 +93,8 @@ nav {
 .nav-links .dropbtn {
   background: none;
   border: none;
-  font-family: "Lato", sans-serif;
-  font-weight: 300;
-  font-style: italic;
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 500;
   font-size: inherit;
   color: white;
   padding: 20px 20px;

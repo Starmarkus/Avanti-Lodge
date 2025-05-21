@@ -91,7 +91,6 @@
 
 .split-image img {
   max-width: 500px;
-  border-radius: 12px;
 }
 
 .split-text {
@@ -138,7 +137,6 @@
 .gallery-item img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
 }
 
 .gallery-heading {
@@ -184,6 +182,7 @@
 
 .booking-button:hover {
   background-color: #e0a800;
+    transform: scale(1.05);
 }
 
 /* Medium screens (tablets, small laptops) */
