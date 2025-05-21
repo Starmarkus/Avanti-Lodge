@@ -216,26 +216,15 @@ nav {
   }
 }
 
-
-
-
-
-.logo img {
-  height: 60px;
-  padding: 5px;
-  margin: 5px;
-  width: auto;
-  background-color: transparent !important;
-  box-shadow: 0 0 10px 5px rgba(237, 181, 44, 0.8); /* yellow glow */
-  border-radius: 6px;
-  transition: box-shadow 0.3s ease;
-}
-
-@media screen and (max-width: 908px) {
-  .logo img {
-    height: 40px;
-    width: 40px;
-  }
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2.5vw;
+  color: white;
+  font-size: 24px;
+  text-decoration: underline;
+  text-align: center;
 }
 
 nav.scroll-active {
