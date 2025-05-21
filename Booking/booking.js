@@ -168,6 +168,7 @@ rooms.forEach((room, index) => {
 
   const bookBtn = document.createElement('button');
   bookBtn.textContent = 'Book Now';
+  bookBtn.style.marginLeft = '1rem';
   bookBtn.onclick = () => bookRoom(room.name);
 
   const result = document.createElement('p');

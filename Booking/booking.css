@@ -1,13 +1,57 @@
-body {
-  font-family: Arial, sans-serif;
+#booking {
+    background-color: #1A2619;
 }
 
-#booking {
-    background-color: white;
+#booking h1 {
+  text-align: center;
+  padding: 20px;
+  color: #1A2619;
+  background-color: white;
+}
+
+#date-selection {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#date-selection label {
+  margin: 10px;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+}
+
+#date-selection input {
+  margin-right: 20px;
+}
+
+/*Calendar*/
+input[type="date"] {
+  background-color: #edb52c;
+  color: white;
+  border: 1px solid white;
+  padding: 0.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="date"]::placeholder {
+  color: white;
+}
+
+input[type="date"]:hover,
+input[type="date"]:focus {
+  background-color: white;
+  color: #1A2619;
+  outline: none;
 }
 
 #rooms {
   margin-top: 20px;
+  color: #1A2619;
 }
 
 .room-container {
@@ -27,9 +71,13 @@ body {
 .room-right {
   flex: 1 1 55%;
   padding: 1rem;
-  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  background-color: #f9f9f9;
+  background-color: #C2BAA5;
+}
+.room-right h3 {
+  color: #1A2619;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .image-slider {
@@ -42,7 +90,6 @@ body {
   width: 100%;
   max-height: 40vh;
   object-fit: cover;
-  border-radius: 6px;
   margin-bottom: 0.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -58,14 +105,12 @@ body {
   padding: 6px 12px;
   font-size: 1.2rem;
   cursor: pointer;
-  border-radius: 4px;
   transition: background 0.3s;
-  border-color: white;
 
 }
 
 .image-arrow:hover {
-  background-color: #3f5a38;  
+  background-color: #1A2619;  
   border-color: white;
 }
 
@@ -97,41 +142,19 @@ body {
 button {
   background-color: #edb52c;
   color: white;
-  border-color: white;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  border-color: #1A2619;
+  border: none;
+  outline: none;
 }
 
 button:hover {
-  background-color: #3f5a38;
+  background-color: #1A2619;
   color: white;
-  border-color: white;
-}
-
-/*Calendar*/
-input[type="date"] {
-  background-color: #edb52c;
-  color: white;
-  border: 1px solid white;
-  padding: 0.4rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-input[type="date"]::placeholder {
-  color: white;
-}
-
-input[type="date"]:hover,
-input[type="date"]:focus {
-  background-color: #3f5a38;
-  color: white;
-  outline: none;
+  border-color: #1A2619;
 }
 
 /* Modal styles */

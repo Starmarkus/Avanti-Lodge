@@ -15,7 +15,7 @@
 
 .login-container h2 {
   margin-bottom: 1rem;
-  color: #3f5a38;
+  color: #1A2619;
   text-align: center;
 }
 
@@ -55,7 +55,7 @@
 }
 
 #login-form button:hover {
-  background-color: #3f5a38;
+  background-color: #1A2619;
 }
 
 #signup-link {
@@ -71,10 +71,12 @@
   font-weight: bold;
   color: #edb52c;
   text-decoration: none;
+  transition: color 0.3s ease;
+
 }
 
 #signup-link a:hover {
-  color: #3f5a38;
+  color: #1A2619;
 }
 
 #signup-link a:visited {
