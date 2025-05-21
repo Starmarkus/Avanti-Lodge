@@ -30,6 +30,9 @@
 
 
   .indexContainerDiv{
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
     padding-left: 35px;
     padding-right: 35px;
   }
@@ -54,9 +57,8 @@
 
   .indexMainContentDiv{
     background-color: white;
-    min-height: 600px;
-    padding-left: 50px;
-    padding-right: 50px;
+    width: 65%;
+    
   }
 
   @media screen and (max-width: 908px) {
@@ -199,7 +201,7 @@
 
 .newspapaerColumnDiv1Content{
   width: 49%;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .newspapaerColumnDivImage {
