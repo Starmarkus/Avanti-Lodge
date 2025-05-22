@@ -27,15 +27,17 @@
   margin-right: 20px;
 }
 
-/*Calendar*/
+/* Calendar Styling */
 input[type="date"] {
+  appearance: none;
   background-color: #edb52c;
   color: white;
-  border: 1px solid white;
-  padding: 0.4rem;
+  border: 2px solid white;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 input[type="date"]::placeholder {
@@ -46,9 +48,21 @@ input[type="date"]:hover,
 input[type="date"]:focus {
   background-color: white;
   color: #1A2619;
+  border: 2px solid #1A2619;
   outline: none;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: white;
+  color: #1A2619;
+  border-radius: 4px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+/* Firefox calendar icon styling is limited */
+
+/* Room section */
 #rooms {
   margin-top: 20px;
   color: #1A2619;
@@ -91,7 +105,7 @@ input[type="date"]:focus {
   max-height: 40vh;
   object-fit: cover;
   margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25); /* enhanced shadow */
 }
 
 .arrow-container {
@@ -106,7 +120,7 @@ input[type="date"]:focus {
   font-size: 1.2rem;
   cursor: pointer;
   transition: background 0.3s;
-
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* added shadow */
 }
 
 .image-arrow:hover {
@@ -149,6 +163,7 @@ button {
   border-color: #1A2619;
   border: none;
   outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* added shadow */
 }
 
 button:hover {
@@ -191,4 +206,5 @@ button:hover {
 
 .modal button {
   margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* shadow for modal button */
 }
