@@ -123,6 +123,12 @@
   .outAndAboutBannerDiv {
     width: 100%;
   }
+
+  .actvitiesHeroDivContent {
+  padding-left: 90px;
+  padding-right: 90px;
+
+}
 }
 
 
@@ -130,12 +136,13 @@
 
   .outAndAboutContainerDiv {
   gap: 0px; /* optional spacing between rows and columns */
-  padding-left:10px;
-  padding-right: 10px;
+  padding-left:5px;
+  padding-right: 5px;
 }
 
 .outAndAboutBannerDiv {
     width: 100%;
+    padding: 0px;
   }
   .outAndAboutUsefulNumbersDiv {
     flex-direction: column;
@@ -146,6 +153,12 @@
   .importantNumbersDiv {
   text-align: center;  /* Optional: center text inside each box */
   width: 500px;    /* Optional: limit width */
+}
+
+  .actvitiesHeroDivContent {
+  padding-left: 60px;
+  padding-right: 60px;
+
 }
 
 }
