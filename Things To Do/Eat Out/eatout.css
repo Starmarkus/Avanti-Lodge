@@ -45,7 +45,9 @@
 
 .eatOutContentDiv {
     font-size: larger;
-  padding: 30px;
+  padding-left: 65px;
+  padding-right: 65px;
+  padding-bottom: 20px;
 }
 
 .eatOutContentButtons {
@@ -150,4 +152,84 @@
 @keyframes scrollGalleryReverse {
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0); }
+}
+
+
+
+@media (max-width: 1650px) {
+  .eatOutContainerDiv {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .eatOutContentContainerDiv {
+    width: 100%;
+  }
+
+  .eatOutGalleryDiv{
+    width: 100%;
+  }
+
+  .eatOutContentDiv {
+    padding-top: 20px;
+    padding-left: 75px;
+    padding-right: 75px;
+  }
+
+    .eatOutHeroDivContent {
+  position: relative;
+  padding: 25px 50px;
+  z-index: 1;
+  font-size: large;
+}
+
+.eatOutContentButtons{
+  padding: 2px 4px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+}
+
+@media (max-width: 1010px) {
+  .eatOutContainerDiv {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .eatOutContentContainerDiv,
+  .eatOutGalleryDiv {
+    width: 100%;
+  }
+
+  .eatOutContentDiv {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .eatOutGalleryDiv{
+    padding-left: 4px;
+    padding-right: 4px;
+    width: 100%;
+  }
+
+  .eatOutHeroDivContent {
+    padding: 20px 40px;
+  }
+
+  .eatOutContentButtons {
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .eatOutContentButton {
+    width: 80% !important;
+    max-width: 90%;
+    margin: 10px 0;
+    box-sizing: border-box;
+  }
 }
