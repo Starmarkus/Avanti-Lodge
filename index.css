@@ -275,6 +275,10 @@
 
 @media (max-width: 1650px){
 
+    .welcomeDiv{
+    min-height: 420px;
+  }
+
     .indexContainerDiv,
   .indexMainContentDiv {
     padding: 0 35px !important;
@@ -291,6 +295,10 @@
 
 
 @media (max-width: 1010px) {
+    .welcomeDiv{
+    min-height: 300px;
+  }
+
   .avantiGuestLodgeDiv{
     padding-left: 5px;
     padding-right: 5px;
