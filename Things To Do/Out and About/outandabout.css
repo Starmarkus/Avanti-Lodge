@@ -53,11 +53,7 @@
   margin-bottom: 5px; /* space between rows */
 }
 
-@media (max-width: 1208px) {
-  .outAndAboutBannerDiv {
-    width: 100%;
-  }
-}
+
 
 
 .outAndAboutBannerDivImage {
@@ -94,16 +90,12 @@
   margin-bottom: 10px;
 }
 
-@media (max-width: 900px) {
-  .outAndAboutUsefulNumbersDiv {
-    flex-direction: column;
-  }
-}
+
 
 .importantNumbersDiv {
   color: white;
   text-align: center;  /* Optional: center text inside each box */
-  max-width: 450px;    /* Optional: limit width */
+  width: 450px;    /* Optional: limit width */
 }
 
 .outAndAboutUsefulTipsDiv {
@@ -124,4 +116,36 @@
   font-size: large;
   text-align: center;  /* Optional: center text inside each box */
   max-width: 650px;    /* Optional: limit width */
+}
+
+
+@media (max-width: 1108px) {
+  .outAndAboutBannerDiv {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 900px) {
+
+  .outAndAboutContainerDiv {
+  gap: 0px; /* optional spacing between rows and columns */
+  padding-left:10px;
+  padding-right: 10px;
+}
+
+.outAndAboutBannerDiv {
+    width: 100%;
+  }
+  .outAndAboutUsefulNumbersDiv {
+    flex-direction: column;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .importantNumbersDiv {
+  text-align: center;  /* Optional: center text inside each box */
+  width: 500px;    /* Optional: limit width */
+}
+
 }
