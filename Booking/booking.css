@@ -1,14 +1,71 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
-
 #booking {
-    background-color: white;
+    background-color: #1A2619;
 }
 
+#booking h1 {
+  text-align: center;
+  padding: 20px;
+  color: #1A2619;
+  background-color: white;
+}
+
+#date-selection {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#date-selection label {
+  margin: 10px;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+}
+
+#date-selection input {
+  margin-right: 20px;
+}
+
+/* Calendar Styling */
+input[type="date"] {
+  appearance: none;
+  background-color: #edb52c;
+  color: white;
+  border: 2px solid white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+input[type="date"]::placeholder {
+  color: white;
+}
+
+input[type="date"]:hover,
+input[type="date"]:focus {
+  background-color: white;
+  color: #1A2619;
+  border: 2px solid #1A2619;
+  outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: white;
+  color: #1A2619;
+  border-radius: 4px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+/* Firefox calendar icon styling is limited */
+
+/* Room section */
 #rooms {
   margin-top: 20px;
+  color: #1A2619;
 }
 
 .room-container {
@@ -28,9 +85,13 @@ body {
 .room-right {
   flex: 1 1 55%;
   padding: 1rem;
-  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  background-color: #f9f9f9;
+  background-color: #C2BAA5;
+}
+.room-right h3 {
+  color: #1A2619;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .image-slider {
@@ -43,9 +104,8 @@ body {
   width: 100%;
   max-height: 40vh;
   object-fit: cover;
-  border-radius: 6px;
   margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25); /* enhanced shadow */
 }
 
 .arrow-container {
@@ -59,14 +119,12 @@ body {
   padding: 6px 12px;
   font-size: 1.2rem;
   cursor: pointer;
-  border-radius: 4px;
   transition: background 0.3s;
-  border-color: white;
-
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* added shadow */
 }
 
 .image-arrow:hover {
-  background-color: #3f5a38;  
+  background-color: #1A2619;  
   border-color: white;
 }
 
@@ -98,41 +156,20 @@ body {
 button {
   background-color: #edb52c;
   color: white;
-  border-color: white;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  border-color: #1A2619;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* added shadow */
 }
 
 button:hover {
-  background-color: #3f5a38;
+  background-color: #1A2619;
   color: white;
-  border-color: white;
-}
-
-/*Calendar*/
-input[type="date"] {
-  background-color: #edb52c;
-  color: white;
-  border: 1px solid white;
-  padding: 0.4rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-input[type="date"]::placeholder {
-  color: white;
-}
-
-input[type="date"]:hover,
-input[type="date"]:focus {
-  background-color: #3f5a38;
-  color: white;
-  outline: none;
+  border-color: #1A2619;
 }
 
 /* Modal styles */
@@ -169,4 +206,5 @@ input[type="date"]:focus {
 
 .modal button {
   margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* shadow for modal button */
 }

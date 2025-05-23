@@ -9,24 +9,37 @@
 </head>
 <body>
   <nav>
-    <div class="navbar-container">
-      <div class="logo">
-        <a href="/index.html">
-          <img src="/Images/logo.png" alt="Avanti Logo" />
-        </a>
-      </div>
-      <div class="nav-links">
-        <a href="/index.html">Home</a>
-        <a href="/About Us/aboutus.html">About Us</a>
-        <a href="/Accomodation/">Accomodation</a>
-        <a href="/Things To Do/Activities/activities.html">Things To Do</a>      
-        <a href="/Contact/contact.html">Contact</a>
-        <a href="/Booking/booking.html">Book Now</a>
-        <a href="login.html">Login</a>
-        <a href="/Profile/profile.html">Profile</a>
-      </div>
+  <div class="navbar-container">
+    <div class="logo">
+      <a href="/index.html">
+        <img src="/images/Logo.png" alt="Logo" />
+      </a>
     </div>
-  </nav>
+    <div class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/About Us/aboutus.html">About Us</a>
+      <div class="dropdown">
+        <a href="/Accomodation/" class="dropbtn">Accommodation</a>
+        <div class="dropdown-content">
+          <a href="/Accomodation/Standard Rooms/standardrooms.html">Standard Room</a>
+          <a href="/Accomodation/Self Catering/selfcatering.html">Self Catering</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="/Things To Do/" class="dropbtn">Things To Do</a>
+        <div class="dropdown-content">
+          <a href="/Things To Do/Activities/activities.html">Activities</a>
+          <a href="/Things To Do/Eat Out/eatout.html">Eat Out</a>
+          <a href="/Things To Do/Out and About/outandabout.html">Out And About</a>
+        </div>
+      </div>
+      <a href="/Contact/contact.html">Contact</a>
+      <a href="/Booking/booking.html" class="book-now">Book Now</a>
+      <a href="/Login/login.html">Login</a>
+      <a href="/Profile/profile.html">Profile</a>
+    </div>
+  </div>
+</nav>
 
   <div class="login-container">
     <form id="login-form">
@@ -52,11 +65,13 @@
 
     <div class="footer-columns">
 
-      <!-- Contact Section -->
+      <!-- Logo Section -->
       <div class="footer-section">
-        <h4>Contact Us</h4>
-        <p>📞 083 551 7502<br>📞 083 691 0929</p>
-        <p>✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a></p>
+            <div class="footer-logo">
+              <a href="/index.html">
+                <img src="/images/Logo - HQ.png" alt="Logo" />
+              </a>
+            </div>
       </div>
 
       <!-- Quick Links -->
@@ -74,8 +89,11 @@
         </ul>
       </div>
 
-      <!-- Location -->
+      <!-- Location and Contact -->
       <div class="footer-section">
+        <h4>Contact Us</h4>
+        <p>📞 083 551 7502<br>📞 083 691 0929</p>
+        <p>✉️ <a href="mailto:admin@yourdomain.co.za">admin@yourdomain.co.za</a></p><br>
         <h4>Find Us</h4>
         <p>📍 19 Hout Street, Vredenburg, 7380</p>
         <p>🌐 -32.98086069699415, 17.991079832992956</p>
@@ -105,5 +123,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="login.js"></script>
+  <script src="/Scripts/sharedjs.js"></script>
 </body>
 </html>

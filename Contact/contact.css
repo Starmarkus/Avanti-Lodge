@@ -7,6 +7,9 @@
   gap: 2%;
 }
 
+
+
+
 .contactContainerDiv {
   display: flex;
   align-items: stretch;
@@ -70,4 +73,31 @@
 .contactMapDiv iframe {
   flex: 1;
   border: 0;
+}
+
+@media (max-width: 1250px) {
+  .contactContainerDiv {
+    padding: 35px;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .contactFormDiv, .contactMapDiv {
+    width: 100%;
+    padding: 35px; /* <-- This line ensures full width usage */
+  }
+}
+
+
+@media (max-width: 1010px) {
+  .contactContainerDiv {
+    padding: 5px;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .contactFormDiv, .contactMapDiv {
+    width: 100%;
+    padding: 15px; /* <-- This line ensures full width usage */
+  }
 }

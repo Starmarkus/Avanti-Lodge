@@ -35,8 +35,10 @@
 .activitiesContainerDiv{
     background-color: white;
     min-height: 70vh;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .activitiesBannerDiv {
@@ -48,10 +50,18 @@
 }
 
 .activitiesBannerDivImage {
-  flex: 0 0 46%; /* Fixed 46% width */
+  width: 49%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.activitiesBannerDivContent {
+
+  align-content: center;
+  width: 49%;
+  display: flex;
+  flex-direction: column; /* stack text vertically */
 }
 
 .activitiesBannerDivImage img {
@@ -62,9 +72,40 @@
 }
 
 .activitiesBannerDivContent{
-    padding: 35px;
+    padding-left: 55px;
+    padding-right: 55px;
 }
 
-.activitiesBannerDivContent h2{
-    padding-left: 50px;
+@media (max-width: 1300px) {
+
+    .activitiesBannerDivContent{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+  .activitiesContainerDiv{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 858px) {
+  .activitiesBannerDiv {
+    flex-direction: column; /* stack items vertically on smaller screens */
+  }
+
+  .activitiesBannerDivImage,
+  .activitiesBannerDivContent {
+    width: 100%; /* full width for both sections */
+  }
+
+  .activitiesBannerDivContent{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.activitiesContainerDiv{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

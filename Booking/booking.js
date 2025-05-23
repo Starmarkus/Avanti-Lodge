@@ -1,195 +1,168 @@
-const rooms = [
-  {
-    name: 'Double Room',
-    rate: 1050,
-    description: 'Avanti went Solar, no more load shedding!!!! All Avanti Guest Lodge rooms offer en-suite bathrooms. Each room is individually decorated and has coffee/tea facilities, Bar fridge, microwave, Smart TV and selected DSTV channels with Free Wi-Fi',
-    images: [
-      '../Images/Rooms/Double/bedroom.jpg',
-      '../Images/Rooms/Double/bathroom.jpg',
-      '../Images/Rooms/Double/bedroom2.jpg',
-      '../Images/Rooms/Double/kitchen.jpg'
-    ],
-    amenities: [
-      'Wi-Fi', 'Non-smoking', 'TV', 'DSTV / Satellite TV', 'Sitting area', 'Desk',
-      'Cleaning service', 'Heater', 'Bathroom amenities', 'Shower only',
-      'Coffee / tea facilities', 'Refrigerator', 'Microwave', 'Bar fridge', 'Terrace'
-    ]
-  },
-  {
-    name: 'Self Catering 1 (Flat 1)',
-    rate: 1150,
-    description: 'Self Catering Flatlet 1 offers en-suite bathroom. It also comes with a dining area and a Full Kitchenette. Each room is individually decorated and has coffee/tea facilities, Smart TV and selected DSTV channels with Free Wi-Fi.',
-    images: [
-      '../Images/Rooms/Flat 1/bedroom.jpg',
-      '../Images/Rooms/Flat 1/bathroom.jpg',
-      '../Images/Rooms/Flat 1/chairs.jpg',
-      '../Images/Rooms/Flat 1/kitchen.jpg'
-    ],
-    amenities: [
-      'Wi-Fi', 'Non-smoking', 'TV', 'DSTV / Satellite TV', 'Sitting area', 'Desk',
-      'Cleaning service', 'Bathroom amenities', 'Shower only', 'Coffee / tea facilities',
-      'Refrigerator', 'Microwave', 'Full kitchen', 'Kitchenette', 'Toaster',
-      'Terrace', 'Plunge pool'
-    ]
-  },
-  {
-    name: 'Self Catering 2 (Flat 2)',
-    rate: 1375,
-    description: 'Self Catering Flatlet 2 offers en-suite bathroom. It also comes with a dining area and a Full Kitchenette. Each room is individually decorated and has coffee/tea facilities, Smart TV and selected DSTV channels with Free Wi-Fi.',
-    images: [
-      '../Images/Rooms/Flat 2/bedroom.jpg',
-      '../Images/Rooms/Flat 2/bathroom.jpg',
-      '../Images/Rooms/Flat 2/kitchen.jpg'
-    ],
-    amenities: [
-      'Wi-Fi', 'TV', 'DSTV / Satellite TV', 'Sitting area', 'Desk',
-      'Cleaning service', 'Bathroom amenities', 'Shower only', 'Coffee / tea facilities',
-      'Refrigerator', 'Microwave', 'Full kitchen', 'Terrace', 'Plunge pool'
-    ]
-  },
-  {
-    name: 'Self Catering 3 (Flat 3)',
-    rate: 1485,
-    description: 'Self Catering Flatlet 3 offers en-suite bathroom, dining area and Kitchenette with build in oven, Smeg gas hob, Fridge, microwave, Each room is individually decorated and has coffee/tea facilities, Smart TV and selected DSTV channels with Free Wi-Fi.',
-    images: [
-      '../Images/Rooms/Flat 3/bedroom.jpg',
-      '../Images/Rooms/Flat 3/bathroom.jpg',
-      '../Images/Rooms/Flat 3/chairs.jpg',
-      '../Images/Rooms/Flat 3/whyjustthetoilet.jpg'
-    ],
-    amenities: [
-      'Wi-Fi', 'Non-smoking', 'TV', 'DSTV / Satellite TV', 'Sitting area', 'Desk',
-      'Cleaning service', 'Turn down service', 'Heater', 'Fan', 'Bathroom amenities',
-      'Shower only', 'Hairdryer', 'Iron', 'Ironing board', 'Coffee / tea facilities',
-      'Refrigerator', 'Microwave', 'Full kitchen', 'Kitchenette', 'Toaster',
-      'Oven', 'Terrace', 'Plunge pool'
-    ]
-  },
-  {
-    name: 'Self Catering 4 (Flat 4)',
-    rate: 1485,
-    description: 'Self Catering Flatlet 4 offers en-suite bathroom. It also comes with a dining area and a Kitchenette with build in oven and Fridge. Each room is individually decorated and has coffee/tea facilities, Smart TV and selected DSTV channels with Free Wi-Fi.',
-    images: [
-      '../Images/Rooms/Flat 4/bedroom.jpg',
-      '../Images/Rooms/Flat 4/bathroom.jpg',
-      '../Images/Rooms/Flat 4/chairs.jpg',
-      '../Images/Rooms/Flat 4/whyjustthetoilet.jpg'
-    ],
-    amenities: [
-      'Wi-Fi', 'Non-smoking', 'TV', 'DSTV / Satellite TV', 'Sitting area', 'Desk',
-      'Cleaning service', 'Turn down service', 'Heater', 'Fan', 'Bathroom amenities',
-      'Shower only', 'Hairdryer', 'Iron', 'Ironing board', 'Coffee / tea facilities',
-      'Refrigerator', 'Microwave', 'Full kitchen', 'Kitchenette', 'Toaster',
-      'Oven', 'Terrace', 'Plunge pool'
-    ]
+// Initialize Supabase client
+const supabaseClient = window.supabase.createClient(
+  'https://ukmvpjomlojbimwpcbbl.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVrbXZwam9tbG9qYmltd3BjYmJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NDc3NDEsImV4cCI6MjA2MjAyMzc0MX0.fETub5iGTDmfG1kz1tZMv9YQMdE4amLuKojTrdykhcM'
+);
+
+async function fetchRoomsFromSupabase() {
+  const { data, error } = await supabaseClient
+    .from('RoomTable')
+    .select('RoomName, RoomDescription, amenities, ratepernight');
+
+  if (error) {
+    console.error('Error fetching rooms:', error);
+    return [];
   }
-];
 
-const roomsContainer = document.getElementById('rooms');
+  return data.map(room => ({
+    name: room.RoomName,
+    description: room.RoomDescription,
+    amenities: room.amenities,
+    rate: room.ratepernight,
+    images: getRoomImages(room.RoomName)
+  }));
+}
 
-rooms.forEach((room, index) => {
-  const container = document.createElement('div');
-  container.className = 'room-container';
-
-  const left = document.createElement('div');
-  left.className = 'room-left';
-
-  const title = document.createElement('h2');
-  title.textContent = room.name;
-
-  let currentImageIndex = 0;
-
-  const imageWrapper = document.createElement('div');
-  imageWrapper.className = 'image-slider';
-
-  const img = document.createElement('img');
-  img.src = room.images[currentImageIndex];
-  img.alt = `${room.name} image`;
-  img.className = 'room-image';
-
-  const prevBtn = document.createElement('button');
-  prevBtn.textContent = '←';
-  prevBtn.className = 'image-arrow';
-  prevBtn.onclick = () => {
-    currentImageIndex = (currentImageIndex - 1 + room.images.length) % room.images.length;
-    img.src = room.images[currentImageIndex];
+function getRoomImages(roomName) {
+  const base = '../Images/Rooms/';
+  const folderMap = {
+    'Double Room': 'Double',
+    'Self Catering 1 (Flat 1)': 'Flat 1',
+    'Self Catering 2 (Flat 2)': 'Flat 2',
+    'Self Catering 3 (Flat 3)': 'Flat 3',
+    'Self Catering 4 (Flat 4)': 'Flat 4'
   };
 
-  const nextBtn = document.createElement('button');
-  nextBtn.textContent = '→';
-  nextBtn.className = 'image-arrow';
-  nextBtn.onclick = () => {
-    currentImageIndex = (currentImageIndex + 1) % room.images.length;
-    img.src = room.images[currentImageIndex];
+  const folder = folderMap[roomName] || '';
+  if (!folder) return [];
+
+  const imagesByRoom = {
+    'Double': ['bedroom.jpg', 'bathroom.jpg', 'bedroom2.jpg', 'kitchen.jpg'],
+    'Flat 1': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'kitchen.jpg'],
+    'Flat 2': ['bedroom.jpg', 'bathroom.jpg', 'kitchen.jpg'],
+    'Flat 3': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'whyjustthetoilet.jpg'],
+    'Flat 4': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'whyjustthetoilet.jpg']
   };
 
-  imageWrapper.appendChild(img);
+  return (imagesByRoom[folder] || []).map(img => `${base}${folder}/${img}`);
+}
 
-  const arrowContainer = document.createElement('div');
-  arrowContainer.className = 'arrow-container';
+let rooms = [];
 
-  arrowContainer.appendChild(prevBtn);
-  arrowContainer.appendChild(nextBtn);
-
-  imageWrapper.appendChild(arrowContainer);
-
-  left.appendChild(title);
-  left.appendChild(imageWrapper);
-
-  const right = document.createElement('div');
-  right.className = 'room-right';
-
-  const descHeading = document.createElement('h3');
-  descHeading.textContent = 'Room Description';
-
-  const description = document.createElement('p');
-  description.textContent = room.description;
-
-  const amenitiesHeading = document.createElement('h3');
-  amenitiesHeading.textContent = 'Amenities';
-
-  const amenitiesTable = document.createElement('table');
-  amenitiesTable.className = 'amenities-table';
-
-  let row;
-  room.amenities.forEach((item, idx) => {
-    if (idx % 4 === 0) {
-      row = document.createElement('tr');
-      amenitiesTable.appendChild(row);
-    }
-    const cell = document.createElement('td');
-    cell.textContent = item;
-    row.appendChild(cell);
-  });
-
-  const checkBtn = document.createElement('button');
-  checkBtn.textContent = 'Check Availability';
-  checkBtn.onclick = () => checkAvailability(room.name);
-
-  const bookBtn = document.createElement('button');
-  bookBtn.textContent = 'Book Now';
-  bookBtn.onclick = () => bookRoom(room.name);
-
-  const result = document.createElement('p');
-  result.id = `result-${index}`;
-
-  right.appendChild(descHeading);
-  right.appendChild(description);
-  right.appendChild(amenitiesHeading);
-  right.appendChild(amenitiesTable);
-
-  const rateHeading = document.createElement('h3');
-  rateHeading.textContent = `Rate: R${room.rate} per night`;
-  right.appendChild(rateHeading);
-
-  right.appendChild(checkBtn);
-  right.appendChild(bookBtn);
-  right.appendChild(result);
-
-  container.appendChild(left);
-  container.appendChild(right);
-  roomsContainer.appendChild(container);
+document.addEventListener('DOMContentLoaded', async () => {
+  rooms = await fetchRoomsFromSupabase();
+  displayRooms();
 });
+
+function displayRooms() {
+  const roomsContainer = document.getElementById('rooms');
+  roomsContainer.innerHTML = '';
+
+  rooms.forEach((room, index) => {
+    const container = document.createElement('div');
+    container.className = 'room-container';
+
+    const left = document.createElement('div');
+    left.className = 'room-left';
+
+    const title = document.createElement('h2');
+    title.textContent = room.name;
+
+    let currentImageIndex = 0;
+
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'image-slider';
+
+    const img = document.createElement('img');
+    img.src = room.images[currentImageIndex];
+    img.alt = `${room.name} image`;
+    img.className = 'room-image';
+
+    const prevBtn = document.createElement('button');
+    prevBtn.textContent = '←';
+    prevBtn.className = 'image-arrow';
+    prevBtn.onclick = () => {
+      currentImageIndex = (currentImageIndex - 1 + room.images.length) % room.images.length;
+      img.src = room.images[currentImageIndex];
+    };
+
+    const nextBtn = document.createElement('button');
+    nextBtn.textContent = '→';
+    nextBtn.className = 'image-arrow';
+    nextBtn.onclick = () => {
+      currentImageIndex = (currentImageIndex + 1) % room.images.length;
+      img.src = room.images[currentImageIndex];
+    };
+
+    imageWrapper.appendChild(img);
+
+    const arrowContainer = document.createElement('div');
+    arrowContainer.className = 'arrow-container';
+
+    arrowContainer.appendChild(prevBtn);
+    arrowContainer.appendChild(nextBtn);
+
+    imageWrapper.appendChild(arrowContainer);
+
+    left.appendChild(title);
+    left.appendChild(imageWrapper);
+
+    const right = document.createElement('div');
+    right.className = 'room-right';
+
+    const descHeading = document.createElement('h3');
+    descHeading.textContent = 'Room Description';
+
+    const description = document.createElement('p');
+    description.textContent = room.description;
+
+    const amenitiesHeading = document.createElement('h3');
+    amenitiesHeading.textContent = 'Amenities';
+
+    const amenitiesTable = document.createElement('table');
+    amenitiesTable.className = 'amenities-table';
+
+    let row;
+    room.amenities.forEach((item, idx) => {
+      if (idx % 4 === 0) {
+        row = document.createElement('tr');
+        amenitiesTable.appendChild(row);
+      }
+      const cell = document.createElement('td');
+      cell.textContent = item;
+      row.appendChild(cell);
+    });
+
+    const checkBtn = document.createElement('button');
+    checkBtn.textContent = 'Check Availability';
+    checkBtn.onclick = () => checkAvailability(room.name);
+
+    const bookBtn = document.createElement('button');
+    bookBtn.textContent = 'Book Now';
+    bookBtn.style.marginLeft = '1rem';
+    bookBtn.onclick = () => bookRoom(room.name);
+
+    const result = document.createElement('p');
+    result.id = `result-${index}`;
+
+    right.appendChild(descHeading);
+    right.appendChild(description);
+    right.appendChild(amenitiesHeading);
+    right.appendChild(amenitiesTable);
+
+    const rateHeading = document.createElement('h3');
+    rateHeading.textContent = `Rate: R${room.rate} per night`;
+    right.appendChild(rateHeading);
+
+    right.appendChild(checkBtn);
+    right.appendChild(bookBtn);
+    right.appendChild(result);
+
+    container.appendChild(left);
+    container.appendChild(right);
+    roomsContainer.appendChild(container);
+  });
+}
 
 function checkAvailability(roomName) {
   const startDate = document.getElementById('start-date').value;
@@ -239,22 +212,20 @@ function bookRoom(roomName) {
   document.getElementById('modal-nights').textContent = `Number of nights: ${nights}`;
   document.getElementById('modal-total').textContent = `Total cost: R${totalCost}`;
 
-  // Show the modal
   document.getElementById('booking-modal').style.display = 'flex';
 
-  // Proceed to Payment
   document.getElementById('proceed-payment').onclick = () => {
-  const params = new URLSearchParams({
-    room: room.name,
-    start: startDate,
-    end: endDate,
-    nights: nights,
-    rate: room.rate,
-    total: totalCost
-  });
+    const params = new URLSearchParams({
+      room: room.name,
+      start: startDate,
+      end: endDate,
+      nights: nights,
+      rate: room.rate,
+      total: totalCost
+    });
 
-  window.location.href = `../Payment/payment.html?${params.toString()}`;
-};
+    window.location.href = `../Payment/payment.html?${params.toString()}`;
+  };
 }
 
 function calculateNights(startDate, endDate) {
@@ -264,7 +235,6 @@ function calculateNights(startDate, endDate) {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
 
-// Close modal
 function closeModal() {
   document.getElementById('booking-modal').style.display = 'none';
 }

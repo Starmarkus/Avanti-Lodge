@@ -1,21 +1,22 @@
-
-
+/* Lato */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+/* Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 h1 {
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 
 h2, h3{
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 h4, h5, h6 {
-  font-family: "Lato", sans-serif;
+  font-family: "Playfair Display", sans-serif;
   font-weight: 700;
   font-style: italic;
 }
@@ -27,50 +28,62 @@ p {
 }
 
 a {
-  font-family: "Lato", sans-serif;
-  font-weight: 300;
-  font-style: italic;
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 500;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background-color: #1A2619;
+  backdrop-filter: none;
+  z-index: 1000;
+  height: 70px;
 }
 
 
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px; /* same as nav height */
+}
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+}
 
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 20px 20px;
+  transition: background 0.3s, color 0.3s;
+}
 
-   nav {
-    position: sticky;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.45); /* transparent white */
-    backdrop-filter: blur(30px); /* optional blur effect for modern look */
-    padding: 20px 20px;
-    z-index: 1000;
-  }
+.nav-links a:hover {
+  background-color: white;
+  color: #EDB52C;
+}
 
-  .nav-links {
-    display: flex;
-    justify-content: flex-end; /* aligns to the right */
-    gap: 15px; /* spacing between items */
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    padding: 10px 10px;
-    transition: background 0.3s;
-  }
-
-  .nav-links a:hover {
-    color: rgb(7, 83, 39);
-    background-color: rgba(255, 166, 0, 0.1);
-    border-radius: 5px;
-  }
-
-
-/* Make the dropdown behave like a link */
 .nav-links .dropdown {
   position: relative;
   display: flex;
@@ -78,22 +91,25 @@ body {
 }
 
 .nav-links .dropbtn {
-  font-style: italic;
   background: none;
   border: none;
-  font: inherit;
-  color: inherit;
-  padding: 14px 16px;
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 500;
+  font-size: inherit;
+  color: white;
+  padding: 20px 20px;
   cursor: pointer;
   text-align: center;
+  transition: background 0.3s, color 0.3s;
+  font-weight: bold;
 }
 
-/* Optional: hover style to match links */
+
 .nav-links .dropbtn:hover {
-  color: rgb(7, 83, 39);
+  background-color: white;
+  color: #EDB52C;
 }
 
-/* Position the dropdown list */
 .nav-links .dropdown-content {
   display: none;
   position: absolute;
@@ -109,7 +125,6 @@ body {
   display: block;
 }
 
-/* Style for dropdown links */
 .nav-links .dropdown-content a {
   padding: 12px 16px;
   display: block;
@@ -119,34 +134,126 @@ body {
 
 .nav-links .dropdown-content a:hover {
   background-color: #f1f1f1;
+  color: #EDB52C;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.nav-links .book-now {
+  background-color: #EDB52C;
+  color: #1A2619;
+  font-weight: bold;
+  padding: 20px 20px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
+.nav-links .book-now:hover {
+  background-color: white;
+  color: #EDB52C;
 }
 
-a {
+
+/* Default: hide mobile-only, show desktop */
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+/* For screen widths 1010px and below */
+@media screen and (max-width: 1010px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* Burger styles (same as before) */
+.burger-button {
+  font-size: 24px;
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.burger-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 10;
+  flex-direction: column;
+}
+
+.burger-dropdown a {
+  padding: 12px 16px;
   text-decoration: none;
-  color: inherit;
+  color: black;
+  display: block;
 }
 
+.burger-dropdown a:hover {
+  background-color: #ddd;
+}
+
+
+/* Show burger on small screens, hide normal dropdowns */
+@media screen and (max-width: 1010px) {
+  .dropdown:nth-child(1),
+  .dropdown:nth-child(2),
+  .dropdown:nth-child(3) {
+    display: none; /* Hide About Us, Accommodation, Things To Do */
+  }
+
+  .burger-menu {
+    display: block; /* Show burger */
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.logo img {
+  height: 75px;
+  margin-right: 10px;
+}
+
+/*
+nav.scroll-active {
+  background-color: rgba(0, 0, 0, 0.226);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+} 
+
+nav.scroll-active .logo img {
+  box-shadow: none;
+}
+*/
+
+/* Footer */
 .custom-footer {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-              url('/Images/IndexWelcomeDivImages/front-of-house.jpg') center/cover no-repeat;
+  background-color: #1A2619;
   color: white;
   padding: 60px 20px 30px;
   text-align: center;
 }
 
 .footer-content {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 60px 20px 30px;
 }
@@ -155,11 +262,24 @@ a {
   margin: 10px 0;
   font-size: 16px;
   line-height: 1.6;
+  color: white;
 }
 
-.footer-content a {
+.footer-content a,
+.footer-bottom a,
+.footer-section a,
+.social-icons a {
   color: white;
-  text-decoration: underline;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.footer-content a:hover,
+.footer-bottom a:hover,
+.footer-section a:hover,
+.social-icons a:hover {
+  color: #EDB52C;
 }
 
 .social-icons {
@@ -167,10 +287,8 @@ a {
 }
 
 .social-icons a {
-  color: white;
   font-size: 20px;
   margin: 0 10px;
-  text-decoration: none;
 }
 
 .footer-bottom {
@@ -178,26 +296,20 @@ a {
   justify-content: center;
   flex-direction: row;
   margin-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 10px;
   font-size: 14px;
-  color: #ccc;
+  color: white;
   gap: 25px;
-}
-
-.footer-bottom a {
-  color: #ccc;
-  text-decoration: underline;
 }
 
 .footer-columns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* centers content */
-  gap: 40px; /* reduces space between columns */
-  margin: 20px auto;
+  justify-content: center;
+  gap: 40px;
   text-align: left;
-  max-width: 1000px; /* keeps content nicely grouped */
+  max-width: 1500px;
 }
 
 .footer-section {
@@ -206,9 +318,10 @@ a {
 }
 
 .footer-section h4 {
-  font-size: 18px;
+  font-size: 30px;
   margin-bottom: 10px;
-  color: #FFD700;
+  color: #EDB52C;
+  text-decoration: underline;
 }
 
 .footer-section p,
@@ -219,15 +332,15 @@ a {
   list-style: none;
   padding: 0;
   margin: 0 0 8px 0;
-}
-
-.footer-section a {
   color: white;
-  text-decoration: underline;
 }
 
 .footer-section ul {
   padding-left: 0;
+}
+
+.footer-logo img{
+  width: 20vw;
 }
 
 @media (max-width: 768px) {
@@ -241,21 +354,3 @@ a {
     margin-bottom: 20px;
   }
 }
-
-.navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo img {
-  height: 50px; /* adjust as needed */
-  width: auto;
-}
-
-@media screen and (max-width: 908px) {
-  .logo img {
-    height: 40px; /* smaller on mobile */
-  }
-}
-
