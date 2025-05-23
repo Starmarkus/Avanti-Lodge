@@ -67,15 +67,14 @@
   font-size: 0.9rem;
 }
 
-#signup-link a {
+div#signup-link a {
   font-weight: bold;
   color: #edb52c;
-  text-decoration: none;
   transition: color 0.3s ease;
 
 }
 
-#signup-link a:hover {
+div#signup-link a:hover {
   color: #1A2619;
 }
 
