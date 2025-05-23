@@ -44,11 +44,6 @@ const imagePaths = [
     "/Images/IndexGallery/putt-putt.jpg"
 ];
 
-// Supabase initialization
-const supabaseUrl = 'https://ukmvpjomlojbimwpcbbl.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVrbXZwam9tbG9qYmltd3BjYmJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY0NDc3NDEsImV4cCI6MjA2MjAyMzc0MX0.fETub5iGTDmfG1kz1tZMv9YQMdE4amLuKojTrdykhcM';
-let supabaseClient = null;
-
 // Debug Supabase loading
 console.log('Checking for Supabase library at:', new Date().toISOString());
 if (typeof window.supabase !== 'undefined') {
