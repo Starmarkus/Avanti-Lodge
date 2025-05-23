@@ -37,3 +37,25 @@
     bg1.style.opacity = 1;
     setTimeout(crossFade, 6000);
   });
+
+
+    const imagePaths = [
+    "/Images/IndexGallery/bedroom.jpg",
+    "/Images/IndexGallery/fireplace.jpg",
+    "/Images/IndexGallery/front-of-house-3.jpg",
+    "/Images/IndexGallery/garden-view.jpg",
+    "/Images/IndexGallery/inside-of-house.jpg",
+    "/Images/IndexGallery/front-oh-house-2.jpg",
+    "/Images/IndexGallery/patio.jpg",
+    "/Images/IndexGallery/putt-putt.jpg"
+    // Add more if needed
+  ];
+  const carouselTrack = document.getElementById("carouselTrack");
+
+  // Add the images twice for seamless scrolling
+  [...imagePaths, ...imagePaths].forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "Gallery Image";
+    carouselTrack.appendChild(img);
+  });
