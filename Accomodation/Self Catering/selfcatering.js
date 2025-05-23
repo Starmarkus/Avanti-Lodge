@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const bg2 = document.getElementById('bg2');
 
   const images = [
-    '/Images/Rooms/Flat 1/kitchen.jpg',
-    '/Images/Rooms/Flat 1/bedroom.jpg',
-    '/Images/Rooms/Flat 1/bathroom.jpg',
-    '/Images/Rooms/Flat 3/chairs.jpg'
+    '/Images/Rooms/Flat 1/flat 1 kitchen.jpg',
+    '/Images/Rooms/Flat 1/flat 1 bedroom.jpg',
+    '/Images/Rooms/Flat 1/flat 1 bathroom.jpg',
+    '/Images/Rooms/Flat 3/flat 3 chairs.jpg'
   ];
 
   let currentIndex = 0;
