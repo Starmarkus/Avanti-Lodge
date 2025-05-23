@@ -51,6 +51,8 @@ body {
     right: 20px;
     padding: 5px 10px;
     border-radius: 10px;
+    color: white;
+    font-weight: bold;
 }
 
 .admin-badge {
@@ -61,7 +63,7 @@ body {
     background: #e74c3c;
 }
 
-.promotion-list {
+.promotion-list, .room-list {
     margin-top: 20px;
 }
 
@@ -81,6 +83,12 @@ body {
 .room-table th, .room-table td {
     padding: 10px;
     border: 1px solid #ddd;
+    text-align: left;
+}
+
+.room-table th {
+    background: #f1f1f1;
+    font-weight: bold;
 }
 
 .available {
@@ -102,6 +110,20 @@ body {
     margin-bottom: 15px;
 }
 
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .btn {
     padding: 10px 15px;
     background: #3498db;
@@ -109,10 +131,19 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background: #2980b9;
 }
 
 .btn-danger {
     background: #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
 }
 
 .modal {
@@ -128,8 +159,22 @@ body {
 
 .modal-content {
     background: white;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     width: 50%;
+    max-width: 600px;
     border-radius: 5px;
+}
+
+.modal-content .form-group {
+    margin-bottom: 15px;
+}
+
+.error-message {
+    display: none;
+    background: #f2dede;
+    color: #a94442;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
