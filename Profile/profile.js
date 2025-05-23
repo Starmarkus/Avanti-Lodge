@@ -18,7 +18,8 @@ const saveBtn = document.getElementById('saveBtn');
 async function loadProfile() {
   const { data: user, error: authError } = await supabase.auth.getUser();
   if (authError || !user?.user) {
-    alert("User not logged in");
+    alert("You must be logged in to view your profile.");
+    window.location.href = '/Login/login.html'; // Redirect after alert
     return;
   }
 
@@ -39,15 +40,17 @@ async function loadProfile() {
   inputs.phone.value = data.UserPhonenumber || '';
 }
 
+
 // Save profile data
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const { data: user } = await supabase.auth.getUser();
-  if (!user?.user) {
-    alert("User not logged in");
-    return;
-  }
+  if (authError || !user?.user) {
+  window.location.href = '/Login/login.html'; // Redirect to login
+  return;
+}
+
 
   const updates = {
     UserID: user.user.id,

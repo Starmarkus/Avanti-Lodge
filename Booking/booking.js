@@ -7,44 +7,50 @@ const supabaseClient = window.supabase.createClient(
 async function fetchRoomsFromSupabase() {
   const { data, error } = await supabaseClient
     .from('RoomTable')
-    .select('RoomName, RoomDescription, amenities, ratepernight');
+    .select('RoomName, RoomDescription, amenities, ratepernight, imagePaths');
 
   if (error) {
     console.error('Error fetching rooms:', error);
     return [];
   }
 
-  return data.map(room => ({
-    name: room.RoomName,
-    description: room.RoomDescription,
-    amenities: room.amenities,
-    rate: room.ratepernight,
-    images: getRoomImages(room.RoomName)
-  }));
+  const rooms = [];
+
+  for (const room of data) {
+    const images = await getRoomImages(room.imagePaths || []);
+    rooms.push({
+      name: room.RoomName,
+      description: room.RoomDescription,
+      amenities: room.amenities,
+      rate: room.ratepernight,
+      images: images
+    });
+  }
+
+  return rooms.sort((a, b) => {
+    return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
+  });
+
 }
 
-function getRoomImages(roomName) {
-  const base = '../Images/Rooms/';
-  const folderMap = {
-    'Double Room': 'Double',
-    'Self Catering 1 (Flat 1)': 'Flat 1',
-    'Self Catering 2 (Flat 2)': 'Flat 2',
-    'Self Catering 3 (Flat 3)': 'Flat 3',
-    'Self Catering 4 (Flat 4)': 'Flat 4'
-  };
+async function getRoomImages(imagePaths) {
+  const bucket = 'room-images';
+  const publicURLs = [];
 
-  const folder = folderMap[roomName] || '';
-  if (!folder) return [];
+  for (const path of imagePaths) {
+    const { data, error } = await supabaseClient.storage
+      .from(bucket)
+      .getPublicUrl(path.trim());
 
-  const imagesByRoom = {
-    'Double': ['bedroom.jpg', 'bathroom.jpg', 'bedroom2.jpg', 'kitchen.jpg'],
-    'Flat 1': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'kitchen.jpg'],
-    'Flat 2': ['bedroom.jpg', 'bathroom.jpg', 'kitchen.jpg'],
-    'Flat 3': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'whyjustthetoilet.jpg'],
-    'Flat 4': ['bedroom.jpg', 'bathroom.jpg', 'chairs.jpg', 'whyjustthetoilet.jpg']
-  };
+    if (error) {
+      console.warn(`Error fetching URL for ${path}:`, error.message);
+      continue;
+    }
 
-  return (imagesByRoom[folder] || []).map(img => `${base}${folder}/${img}`);
+    publicURLs.push(data.publicUrl);
+  }
+
+  return publicURLs;
 }
 
 let rooms = [];

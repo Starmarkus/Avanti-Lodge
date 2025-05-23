@@ -9,36 +9,64 @@
 </head>
 <body>
   <nav>
-  <div class="navbar-container">
+   <div class="navbar-container">
     <div class="logo">
       <a href="/index.html">
         <img src="/images/Logo.png" alt="Logo" />
       </a>
     </div>
-    <div class="nav-links">
-      <a href="/index.html">Home</a>
+<div class="nav-links">
+  <!-- Original Menus (visible only on large screens) -->
+  <div class="dropdown desktop-only">
+    <a href="#" class="dropbtn">About Us</a>
+    <div class="dropdown-content">
       <a href="/About Us/aboutus.html">About Us</a>
-      <div class="dropdown">
-        <a href="/Accomodation/" class="dropbtn">Accommodation</a>
-        <div class="dropdown-content">
-          <a href="/Accomodation/Standard Rooms/standardrooms.html">Standard Room</a>
-          <a href="/Accomodation/Self Catering/selfcatering.html">Self Catering</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <a href="/Things To Do/" class="dropbtn">Things To Do</a>
-        <div class="dropdown-content">
-          <a href="/Things To Do/Activities/activities.html">Activities</a>
-          <a href="/Things To Do/Eat Out/eatout.html">Eat Out</a>
-          <a href="/Things To Do/Out and About/outandabout.html">Out And About</a>
-        </div>
-      </div>
-      <a href="/Contact/contact.html">Contact</a>
-      <a href="/Booking/booking.html" class="book-now">Book Now</a>
-      <a href="/Login/login.html">Login</a>
-      <a href="/Profile/profile.html">Profile</a>
+      <a href="/Contact/contact.html">Contact Us</a>
     </div>
   </div>
+
+  <div class="dropdown desktop-only">
+    <a href="#" class="dropbtn">Accommodation</a>
+    <div class="dropdown-content">
+      <a href="/Accomodation/Standard Rooms/standardrooms.html">Standard Room</a>
+      <a href="/Accomodation/Self Catering/selfcatering.html">Self Catering</a>
+    </div>
+  </div>
+
+  <div class="dropdown desktop-only">
+    <a href="#" class="dropbtn">Things To Do</a>
+    <div class="dropdown-content">
+      <a href="/Things To Do/Activities/activities.html">Activities</a>
+      <a href="/Things To Do/Eat Out/eatout.html">Eat Out</a>
+      <a href="/Things To Do/Out and About/outandabout.html">Out And About</a>
+    </div>
+  </div>
+
+  <!-- Burger Menu (small screens only) -->
+  <div class="burger-menu mobile-only">
+    <button class="burger-button">&#9776;</button>
+    <div class="burger-dropdown">
+      <a href="/About Us/aboutus.html">About Us</a>
+      <a href="/Contact/contact.html">Contact Us</a>
+      <a href="/Accomodation/Standard Rooms/standardrooms.html">Standard Room</a>
+      <a href="/Accomodation/Self Catering/selfcatering.html">Self Catering</a>
+      <a href="/Things To Do/Activities/activities.html">Activities</a>
+      <a href="/Things To Do/Eat Out/eatout.html">Eat Out</a>
+      <a href="/Things To Do/Out and About/outandabout.html">Out And About</a>
+    </div>
+  </div>
+
+  <!-- Always-visible items -->
+  <a href="/Booking/booking.html" class="book-now">Book Now</a>
+  <div class="dropdown">
+    <a href="#" class="dropbtn">Profile</a>
+    <div class="dropdown-content">
+      <a href="/Profile/profile.html">Profile</a>
+      <a href="/Login/login.html">Login</a>
+      <a href="#" id="logout-link">Logout</a>
+    </div>
+  </div>
+</div>
 </nav>
 
   <div class="signup-container">
