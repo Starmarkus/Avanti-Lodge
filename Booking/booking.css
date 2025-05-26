@@ -94,6 +94,28 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 5px;
 }
 
+.availability-result {
+  padding: 0.4rem 1rem;
+  margin-top: 1rem;
+  background-color: #1A2619;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.available {
+  background-color: #1A2619; /* dark green */
+  color: white;
+}
+
+.not-available {
+  background-color: white;
+  color: #1A2619;
+}
+
+.hidden {
+  display: none !important;  /* hides element completely */
+}
+
 .image-slider {
   display: flex;
   flex-direction: column;
@@ -163,7 +185,7 @@ button {
   border-color: #1A2619;
   border: none;
   outline: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* added shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {

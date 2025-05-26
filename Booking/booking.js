@@ -1,3 +1,4 @@
+// Fetch room data from Supabase and their image URLs
 async function fetchRoomsFromSupabase() {
   const { data, error } = await supabaseClient
     .from('RoomTable')
@@ -24,9 +25,9 @@ async function fetchRoomsFromSupabase() {
   return rooms.sort((a, b) => {
     return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
   });
-
 }
 
+// Generate public URLs for room images from Supabase Storage
 async function getRoomImages(imagePaths) {
   const bucket = 'room-images';
   const publicURLs = [];
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   displayRooms();
 });
 
+// Render all rooms dynamically
 function displayRooms() {
   const roomsContainer = document.getElementById('rooms');
   roomsContainer.innerHTML = '';
@@ -62,6 +64,7 @@ function displayRooms() {
     const container = document.createElement('div');
     container.className = 'room-container';
 
+    // Left section: Title and image carousel
     const left = document.createElement('div');
     left.className = 'room-left';
 
@@ -107,6 +110,7 @@ function displayRooms() {
     left.appendChild(title);
     left.appendChild(imageWrapper);
 
+    // Right section: Description, amenities, rate, buttons
     const right = document.createElement('div');
     right.className = 'room-right';
 
@@ -142,9 +146,12 @@ function displayRooms() {
     bookBtn.style.marginLeft = '1rem';
     bookBtn.onclick = () => bookRoom(room.name);
 
+    // Availability result paragraph with styling classes
     const result = document.createElement('p');
     result.id = `result-${index}`;
+    result.className = 'availability-result hidden';
 
+    // Add all elements to the right section
     right.appendChild(descHeading);
     right.appendChild(description);
     right.appendChild(amenitiesHeading);
@@ -158,13 +165,15 @@ function displayRooms() {
     right.appendChild(bookBtn);
     right.appendChild(result);
 
+    // Final container setup
     container.appendChild(left);
     container.appendChild(right);
     roomsContainer.appendChild(container);
   });
 }
 
-function checkAvailability(roomName) {
+// Check if a room is available for the selected date range
+async function checkAvailability(roomName) {
   const startDate = document.getElementById('start-date').value;
   const endDate = document.getElementById('end-date').value;
 
@@ -178,13 +187,56 @@ function checkAvailability(roomName) {
     return;
   }
 
-  alert(`Checking availability for ${roomName} from ${startDate} to ${endDate}...`);
   const index = rooms.findIndex(r => r.name === roomName);
-  document.getElementById(`result-${index}`).textContent =
-    `Availability checked for ${roomName} from ${startDate} to ${endDate}.`;
+  const resultElement = document.getElementById(`result-${index}`);
+
+  try {
+    const { data: roomData, error: roomError } = await supabaseClient
+      .from('RoomTable')
+      .select('RoomID')
+      .eq('RoomName', roomName)
+      .single();
+
+    if (roomError || !roomData) {
+      console.error('Error fetching RoomID:', roomError);
+      resultElement.textContent = 'Error fetching room information.';
+      return;
+    }
+
+    const roomID = roomData.RoomID;
+
+    const { data: bookings, error: bookingError } = await supabaseClient
+      .from('BookingTable')
+      .select('BookingStartDate, BookingEndDate')
+      .eq('RoomID', roomID)
+      .or(`and(BookingStartDate.lte.${endDate},BookingEndDate.gte.${startDate})`);
+
+    if (bookingError) {
+      console.error('Error checking bookings:', bookingError);
+      resultElement.textContent = 'Error checking availability.';
+      return;
+    }
+
+    // Reset styles
+    resultElement.classList.remove('available', 'not-available', 'hidden');
+
+    // Apply new styles and message
+    if (bookings.length > 0) {
+      resultElement.textContent = `${roomName} is NOT available from ${startDate} to ${endDate}.`;
+      resultElement.classList.add('not-available');
+    } else {
+      resultElement.textContent = `${roomName} is available from ${startDate} to ${endDate}.`;
+      resultElement.classList.add('available');
+    }
+
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    resultElement.textContent = 'Error checking availability.';
+  }
 }
 
-function bookRoom(roomName) {
+// Trigger the booking modal or redirect
+async function bookRoom(roomName) {
   const startDate = document.getElementById('start-date').value;
   const endDate = document.getElementById('end-date').value;
 
@@ -205,29 +257,67 @@ function bookRoom(roomName) {
     return;
   }
 
-  const totalCost = nights * room.rate;
+  try {
+    const { data: roomData, error: roomError } = await supabaseClient
+      .from('RoomTable')
+      .select('RoomID')
+      .eq('RoomName', roomName)
+      .single();
 
-  document.getElementById('modal-title').textContent = `Booking: ${roomName}`;
-  document.getElementById('modal-dates').textContent = `From ${startDate} to ${endDate}`;
-  document.getElementById('modal-nights').textContent = `Number of nights: ${nights}`;
-  document.getElementById('modal-total').textContent = `Total cost: R${totalCost}`;
+    if (roomError || !roomData) {
+      console.error('Error fetching RoomID:', roomError);
+      alert('Error verifying room information.');
+      return;
+    }
 
-  document.getElementById('booking-modal').style.display = 'flex';
+    const roomID = roomData.RoomID;
 
-  document.getElementById('proceed-payment').onclick = () => {
-    const params = new URLSearchParams({
-      room: room.name,
-      start: startDate,
-      end: endDate,
-      nights: nights,
-      rate: room.rate,
-      total: totalCost
-    });
+    const { data: bookings, error: bookingError } = await supabaseClient
+      .from('BookingTable')
+      .select('BookingStartDate, BookingEndDate')
+      .eq('RoomID', roomID)
+      .or(`and(BookingStartDate.lte.${endDate},BookingEndDate.gte.${startDate})`);
 
-    window.location.href = `../Payment/payment.html?${params.toString()}`;
-  };
+    if (bookingError) {
+      console.error('Error checking bookings:', bookingError);
+      alert('Error checking availability.');
+      return;
+    }
+
+    if (bookings.length > 0) {
+      alert(`${roomName} is NOT available from ${startDate} to ${endDate}. Please choose different dates.`);
+      return;
+    }
+
+    const totalCost = nights * room.rate;
+
+    // Populate and show booking modal
+    document.getElementById('modal-title').textContent = `Booking: ${roomName}`;
+    document.getElementById('modal-dates').textContent = `From ${startDate} to ${endDate}`;
+    document.getElementById('modal-nights').textContent = `Number of nights: ${nights}`;
+    document.getElementById('modal-total').textContent = `Total cost: R${totalCost}`;
+    document.getElementById('booking-modal').style.display = 'flex';
+
+    document.getElementById('proceed-payment').onclick = () => {
+      const params = new URLSearchParams({
+        room: room.name,
+        start: startDate,
+        end: endDate,
+        nights: nights,
+        rate: room.rate,
+        total: totalCost
+      });
+
+      window.location.href = `../Payment/payment.html?${params.toString()}`;
+    };
+
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    alert('Something went wrong while checking availability.');
+  }
 }
 
+// Calculate number of nights between two dates
 function calculateNights(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -235,6 +325,7 @@ function calculateNights(startDate, endDate) {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
 
+// Close booking modal
 function closeModal() {
   document.getElementById('booking-modal').style.display = 'none';
 }
