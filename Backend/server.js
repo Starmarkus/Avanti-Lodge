@@ -1,14 +1,14 @@
-// backend/server.js
+// server.js
 require('dotenv').config();
 const express = require('express');
 const Stripe = require('stripe');
 const cors = require('cors');
 
 const app = express();
-const stripe = Stripe(process.env.sk_test_51RTHpDR19TEC9QUuWd7Bpbj74gOCLS4qCSNEGGVzN5iwEsn0NblLjh5kRGHTB3gVvDEsDkGMNR8dAEzquUJC4vEG00rYUDrAbp);
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-app.use(cors()); // allow frontend to access backend
-app.use(express.json()); // parse JSON body
+app.use(cors());
+app.use(express.json());
 
 app.post('/create-checkout-session', async (req, res) => {
   const { room, start, end, nights, rate, total } = req.body;
@@ -24,12 +24,12 @@ app.post('/create-checkout-session', async (req, res) => {
             name: `Booking: ${room}`,
             description: `From ${start} to ${end} (${nights} nights at R${rate}/night)`,
           },
-          unit_amount: Math.round(total * 100), // Stripe uses cents
+          unit_amount: Math.round(total * 100),
         },
         quantity: 1,
       }],
-      success_url: 'https://yourdomain.com/success.html',
-      cancel_url: 'https://yourdomain.com/cancel.html',
+      success_url: 'http://127.0.0.1:5500/Profile/profile.html',
+      cancel_url: 'http://127.0.0.1:5500/Booking/booking.html',
     });
 
     res.json({ url: session.url });
@@ -38,3 +38,5 @@ app.post('/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: 'Payment session creation failed' });
   }
 });
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
