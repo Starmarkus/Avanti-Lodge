@@ -211,7 +211,6 @@ button:hover {
 .modal {
   background: #fff;
   padding: 2rem;
-  border-radius: 12px;
   max-width: 500px;
   width: 90%;
   text-align: center;
@@ -219,7 +218,7 @@ button:hover {
 }
 
 .modal h3 {
-  margin-top: 0;
+  color: #1A2619;
 }
 
 .modal p {

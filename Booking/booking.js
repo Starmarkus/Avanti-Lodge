@@ -298,18 +298,34 @@ async function bookRoom(roomName) {
     document.getElementById('modal-total').textContent = `Total cost: R${totalCost}`;
     document.getElementById('booking-modal').style.display = 'flex';
 
-    document.getElementById('proceed-payment').onclick = () => {
-      const params = new URLSearchParams({
-        room: room.name,
-        start: startDate,
-        end: endDate,
-        nights: nights,
-        rate: room.rate,
-        total: totalCost
+    document.getElementById('proceed-payment').onclick = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          room: room.name,
+          start: startDate,
+          end: endDate,
+          nights: nights,
+          rate: room.rate,
+          total: totalCost
+        }),
       });
 
-      window.location.href = `../Payment/payment.html?${params.toString()}`;
-    };
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url; // redirect to Stripe Checkout
+      } else {
+        alert('Failed to initiate payment.');
+        console.error(data.error || 'Unknown error');
+      }
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+      alert('Payment initiation error.');
+    }
+  };
 
   } catch (err) {
     console.error('Unexpected error:', err);
