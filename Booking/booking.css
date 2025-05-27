@@ -209,17 +209,20 @@ button:hover {
 }
 
 .modal {
-  background: #fff;
+  background: white;
   padding: 2rem;
-  border-radius: 12px;
+  border-color: #fff;
+  border-width: 3px;
   max-width: 500px;
   width: 90%;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
 }
 
 .modal h3 {
   margin-top: 0;
+  color: #1A2619;
 }
 
 .modal p {
