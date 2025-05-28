@@ -11,20 +11,55 @@ document.addEventListener('DOMContentLoaded', () => {
   
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-  
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-  
-      if (error) {
-        message.textContent = `Login failed: ${error.message}`;
-      } else {
-        message.textContent = 'Login successful!';
-        setTimeout(() => {
-          window.location.href = '../index.html';
-        }, 1500);
+
+      // Validate input fields
+      if (!email || !password) {
+        message.textContent = 'Please fill in both email and password.';
+        return;
+      }
+
+      try {
+        // Sign in user
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            console.error("Login error:", error);
+            message.textContent = `Login failed: ${error.message}`;
+            return;
+        }
+
+        console.log("User logged in successfully:", data);
+        console.log("User token:", data.session.access_token);
+
+        // Get user ID from Supabase
+        const userId = data.user.id;
+
+        // Check user role from UserTable
+        const { data: userData, error: userError } = await supabase
+            .from("UserTable")
+            .select("Role")
+            .eq("UserEmail", email)
+            .single();
+
+        if (userError) {
+            console.error("User role check error:", userError);
+            message.textContent = "Error checking user role.";
+            return;
+        }
+
+        if (userData.Role === 'Admin' || userData.Role === 'admin') {
+            // Redirect admin to admin dashboard
+            console.log("Admin detected, redirecting...");
+            window.location.href = "/Admin/adminDashboard.html";
+        } else {
+            // Redirect regular user to user dashboard
+            console.log("User detected, redirecting...");
+            window.location.href = "/index.html";
+        }
+
+      } catch (error) {
+        message.textContent = "Login failed: " + error.message;
+        console.error("Login error details:", error);
       }
     });
-  });
-  
+});
