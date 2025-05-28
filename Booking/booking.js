@@ -237,6 +237,15 @@ async function checkAvailability(roomName) {
 
 // Trigger the booking modal or redirect
 async function bookRoom(roomName) {
+  // Check if user is logged in
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    alert('You must be logged in to book a room.');
+    window.location.href = '/Login/login.html'; // Replace with your actual login page path
+    return;
+  }
+
   const startDate = document.getElementById('start-date').value;
   const endDate = document.getElementById('end-date').value;
 
@@ -299,33 +308,33 @@ async function bookRoom(roomName) {
     document.getElementById('booking-modal').style.display = 'flex';
 
     document.getElementById('proceed-payment').onclick = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          room: room.name,
-          start: startDate,
-          end: endDate,
-          nights: nights,
-          rate: room.rate,
-          total: totalCost
-        }),
-      });
+      try {
+        const response = await fetch('http://localhost:3000/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            room: room.name,
+            start: startDate,
+            end: endDate,
+            nights: nights,
+            rate: room.rate,
+            total: totalCost
+          }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (data.url) {
-        window.location.href = data.url; // redirect to Stripe Checkout
-      } else {
-        alert('Failed to initiate payment.');
-        console.error(data.error || 'Unknown error');
+        if (data.url) {
+          window.location.href = data.url; // Redirect to Stripe Checkout
+        } else {
+          alert('Failed to initiate payment.');
+          console.error(data.error || 'Unknown error');
+        }
+      } catch (err) {
+        console.error('Error creating checkout session:', err);
+        alert('Payment initiation error.');
       }
-    } catch (err) {
-      console.error('Error creating checkout session:', err);
-      alert('Payment initiation error.');
-    }
-  };
+    };
 
   } catch (err) {
     console.error('Unexpected error:', err);
