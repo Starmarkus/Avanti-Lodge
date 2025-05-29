@@ -62,4 +62,47 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Login error details:", error);
       }
     });
+
+    // Modal functionality
+    const modal = document.getElementById('forgot-password-modal');
+    const closeModal = document.getElementById('close-modal');
+    const forgotLink = document.querySelector('#signup-link a[href="/Login/forgotps.html"]');
+    const resetForm = document.getElementById('forgot-password-form');
+    const resetMessage = document.getElementById('reset-message');
+
+    // Open modal when "Forgot your password?" is clicked
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'block';
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      resetMessage.textContent = '';
+      resetForm.reset();
+    });
+
+    // Handle password reset submission
+    resetForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('reset-email').value.trim();
+
+      if (!email) {
+        resetMessage.textContent = 'Please enter your email.';
+        return;
+      }
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'http://127.0.0.1:5500/Login/resetps.html' // Your password reset handler page
+      });
+
+      if (error) {
+        console.error('Reset error:', error.message);
+        resetMessage.textContent = `Error: ${error.message}`;
+      } else {
+        resetMessage.textContent = 'Check your email for the reset link.';
+      }
+    });
+
 });
