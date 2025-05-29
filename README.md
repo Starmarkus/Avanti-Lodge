@@ -15,6 +15,10 @@ Colours: Yellow #EDB52C
          Khaki #C2BAA5
          Dark Green #1A2619
 
+TESTING COMMANDS
+In cmd from Stripe root: stripe listen --forward-to localhost:3000/webhook
+In terminal in Backend root: node server.js
+
 PAYMENT TESTING INSTRUCTIONS
 1. Start your local server
 Make sure your Express server (server.js) is running on http://localhost:3000:
