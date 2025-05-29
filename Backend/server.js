@@ -87,19 +87,23 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     }
 
     try {
-      const { data: roomData, error: roomError } = await supabase
+      const { data: roomRows, error: roomError } = await supabase
         .from('RoomTable')
         .select('RoomID')
         .eq('RoomName', metadata.room)
-        .single();
+        .limit(1);
 
-      if (roomError || !roomData) throw new Error(roomError?.message || 'Room not found.');
+      if (roomError || !roomRows || roomRows.length === 0) {
+        throw new Error(roomError?.message || 'Room not found or multiple rooms matched.');
+      }
+
+      const roomID = roomRows[0].RoomID;
 
       const insertRes = await supabase
         .from('BookingTable')
         .insert({
           UserID: metadata.userID,
-          RoomID: roomData.RoomID,
+          RoomID: roomID,
           BookingStartDate: metadata.start,
           BookingEndDate: metadata.end,
           BookingTotalNights: parseInt(metadata.nights),
