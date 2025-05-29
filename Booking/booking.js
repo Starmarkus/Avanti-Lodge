@@ -217,10 +217,8 @@ async function checkAvailability(roomName) {
       return;
     }
 
-    // Reset styles
     resultElement.classList.remove('available', 'not-available', 'hidden');
 
-    // Apply new styles and message
     if (bookings.length > 0) {
       resultElement.textContent = `${roomName} is NOT available from ${startDate} to ${endDate}.`;
       resultElement.classList.add('not-available');
@@ -237,12 +235,11 @@ async function checkAvailability(roomName) {
 
 // Trigger the booking modal or redirect
 async function bookRoom(roomName) {
-  // Check if user is logged in
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {
     alert('You must be logged in to book a room.');
-    window.location.href = '/Login/login.html'; // Replace with your actual login page path
+    window.location.href = '/Login/login.html';
     return;
   }
 
@@ -300,7 +297,6 @@ async function bookRoom(roomName) {
 
     const totalCost = nights * room.rate;
 
-    // Populate and show booking modal
     document.getElementById('modal-title').textContent = `Booking: ${roomName}`;
     document.getElementById('modal-dates').textContent = `From ${startDate} to ${endDate}`;
     document.getElementById('modal-nights').textContent = `Number of nights: ${nights}`;
@@ -318,14 +314,15 @@ async function bookRoom(roomName) {
             end: endDate,
             nights: nights,
             rate: room.rate,
-            total: totalCost
+            total: totalCost,
+            userID: user.id // ✅ Include userID here
           }),
         });
 
         const data = await response.json();
 
         if (data.url) {
-          window.location.href = data.url; // Redirect to Stripe Checkout
+          window.location.href = data.url;
         } else {
           alert('Failed to initiate payment.');
           console.error(data.error || 'Unknown error');
@@ -342,7 +339,6 @@ async function bookRoom(roomName) {
   }
 }
 
-// Calculate number of nights between two dates
 function calculateNights(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -350,7 +346,6 @@ function calculateNights(startDate, endDate) {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
 
-// Close booking modal
 function closeModal() {
   document.getElementById('booking-modal').style.display = 'none';
 }
