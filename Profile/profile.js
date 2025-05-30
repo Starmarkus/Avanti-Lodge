@@ -141,14 +141,16 @@ async function loadBookings() {
     div.className = 'booking-entry';
     div.style.marginBottom = '1rem';
     div.innerHTML = `
-      <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: #1A2619;">${roomName}</h3>
+      <h4 style="margin-top: 0; margin-bottom: 0.5rem; color: #1A2619;">${roomName}</h4>
       <strong>Date booked:</strong> ${createdAt}<br>
       <strong>Booking Period:</strong> ${start} to ${end}<br>
       <strong>Nights booked:</strong> ${booking.BookingTotalNights}<br>
       <strong>Total Price:</strong> R${booking.BookingTotalPrice.toFixed(2)}
+      ${booking.IsCancelled ? `<p style="color: red; margin-top: 0.5rem;"><strong>Booking Cancelled</strong></p>` : ''}
     `;
     bookingList.appendChild(div);
   });
+
 
 }
 
