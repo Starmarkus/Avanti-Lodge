@@ -107,5 +107,44 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
     tabContent.style.display = 'block';
   }
+  loadBookings();
 });
+
+async function loadBookings() {
+  const { data: user, error: authError } = await supabase.auth.getUser();
+  if (authError || !user?.user) {
+    return;
+  }
+
+  const { data: bookings, error } = await supabase
+    .from('BookingTable')
+    .select('*')
+    .eq('UserID', user.user.id)
+    .order('created_at', { ascending: false });
+
+  const bookingList = document.getElementById('bookingList');
+  bookingList.innerHTML = ''; // Clear old content
+
+  if (error || !bookings || bookings.length === 0) {
+    bookingList.innerHTML = '<p>No bookings to show.</p>';
+    return;
+  }
+
+  bookings.forEach(booking => {
+    const createdAt = new Date(booking.created_at).toLocaleDateString();
+    const start = new Date(booking.BookingStartDate).toLocaleDateString();
+    const end = new Date(booking.BookingEndDate).toLocaleDateString();
+
+    const div = document.createElement('div');
+    div.className = 'booking-entry';
+    div.style.marginBottom = '1rem';
+    div.innerHTML = `
+      <strong>Date booked:</strong> ${createdAt}<br>
+      <strong>Booking Period:</strong> ${start} to ${end}<br>
+      <strong>Nights booked:</strong> ${booking.BookingTotalNights}<br>
+      <strong>Total Price:</strong> R${booking.BookingTotalPrice.toFixed(2)}
+    `;
+    bookingList.appendChild(div);
+  });
+}
 

@@ -79,7 +79,7 @@
     <div class="tabs">
       <button onclick="showTab(event, 'personal')" class="tab-btn active">Personal Details</button>
       <button onclick="showTab(event, 'bookings')" class="tab-btn">Bookings</button>
-      <button onclick="showTab(event, 'payments')" class="tab-btn">Payment Methods</button>
+      <!--<button onclick="showTab(event, 'payments')" class="tab-btn">Payment Methods</button>-->
     </div>
 
     <div id="personal" class="tab-content">
@@ -113,14 +113,14 @@
     </div>
 
     <div id="bookings" class="tab-content" style="display:none;">
-      <h3>Your Bookings</h3>
-      <p>No bookings to show.</p>
+      <h3 class="booking-heading">Your Bookings</h3>
+      <div id="bookingList"></div>
     </div>
 
-    <div id="payments" class="tab-content" style="display:none;">
+    <!--<div id="payments" class="tab-content" style="display:none;">
       <h3>Payment Methods</h3>
       <p>No payment methods saved.</p>
-    </div>
+    </div>-->
   </div>
 
   <div id="formMessage" style="margin-top: 1rem; color: green;"></div>
