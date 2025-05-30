@@ -98,7 +98,7 @@ async function loadRoomBookings(roomId, roomElement) {
                         <span class="booking-date">${booking.BookingStartDate} - ${booking.BookingEndDate}</span>
                     </div>
                     <div>
-                        <span class="booking-price">$${booking.BookingTotalPrice || 0}</span>
+                        <span class="booking-price">R${booking.BookingTotalPrice || 0}</span>
                         <button class="btn btn-sm" onclick="showBookingDetails('${booking.BookingID}')">Details</button>
                     </div>
                 </li>
@@ -136,8 +136,8 @@ window.showBookingDetails = function(bookingId) {
                 <div class="form-group">
                     <h4>User Details</h4>
                     <p><strong>Name:</strong> ${booking.UserTable.UserFirstname} ${booking.UserTable.UserLastname}</p>
-                    <p><strong>Email:</strong> ${booking.UserTable.Email}</p>
-                    <p><strong>Phone:</strong> ${booking.UserTable.Phone || 'N/A'}</p>
+                    <p><strong>Email:</strong> ${booking.UserTable.UserEmail}</p>
+                    <p><strong>Phone:</strong> ${booking.UserTable.UserPhonenumber || 'N/A'}</p>
                 </div>
                 <div class="form-group">
                     <h4>Booking Details</h4>
@@ -145,10 +145,10 @@ window.showBookingDetails = function(bookingId) {
                     <p><strong>Start Date:</strong> ${booking.BookingStartDate}</p>
                     <p><strong>End Date:</strong> ${booking.BookingEndDate}</p>
                     <p><strong>Total Nights:</strong> ${booking.BookingTotalNights}</p>
-                    <p><strong>Total Price:</strong> $${booking.BookingTotalPrice}</p>
+                    <p><strong>Total Price:</strong> R${booking.BookingTotalPrice}</p>
                 </div>
                 <div class="form-group">
-                    <button class="btn" onclick="emailUser('${booking.UserTable.Email}', '${booking.UserTable.UserFirstname}')">Email User</button>
+                    <button class="btn" onclick="emailUser('${booking.UserTable.UserEmail}', '${booking.UserTable.UserFirstname}')">Email User</button>
                     <button class="btn btn-danger" id="cancel-booking-btn">Cancel Booking</button>
                 </div>
             `;
@@ -182,16 +182,16 @@ window.showBookingDetails = function(bookingId) {
 
                         switch(reason) {
                             case 'maintenance':
-                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to maintenance issues. We apologize for the inconvenience.\n\nBest regards,\nHotel Management`;
+                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to maintenance issues. We apologize for the inconvenience. We will refund you the money.\n\nBest regards,\nHotel Management`;
                                 break;
                             case 'emergency':
-                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to an emergency. We apologize for the inconvenience.\n\nBest regards,\nHotel Management`;
+                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to an emergency. We apologize for the inconvenience. We will refund you the money.\n\nBest regards,\nHotel Management`;
                                 break;
                             case 'overbooking':
-                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to overbooking. We apologize for the inconvenience and will ensure this does not happen again.\n\nBest regards,\nHotel Management`;
+                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled due to overbooking. We apologize for the inconvenience and will ensure this does not happen again. We will refund you the money.\n\nBest regards,\nHotel Management`;
                                 break;
                             case 'other':
-                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled. We apologize for the inconvenience.\n\nBest regards,\nHotel Management`;
+                                emailBody = `Dear ${booking.UserTable.UserFirstname},\n\nWe regret to inform you that your booking has been canceled. We apologize for the inconvenience. We will refund you the money.\n\nBest regards,\nHotel Management`;
                                 break;
                         }
 
@@ -222,7 +222,7 @@ window.showBookingDetails = function(bookingId) {
                             }
 
                             // Send email
-                            window.location.href = `mailto:${booking.UserTable.Email}?subject=Booking Cancellation&body=${encodeURIComponent(emailBody)}`;
+                            window.location.href = `mailto:${booking.UserTable.UserEmail}?subject=Booking Cancellation&body=${encodeURIComponent(emailBody)}`;
 
                             // Close modal and reload bookings
                             bookingModal.style.display = 'none';

@@ -17,3 +17,45 @@
     background: #f1f1f1;
     font-weight: bold;
 }
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 50px; /* Position closer to top */
+    width: 100%;
+    height: calc(100% - 50px);
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 80%;
+    max-width: 600px;
+    max-height: calc(100% - 100px); /* Allow content to scroll */
+    overflow-y: auto; /* Enable scrolling within content */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px; /* Minimum height for textarea */
+    max-height: 300px; /* Maximum height before scrolling */
+    overflow-y: auto; /* Enable scrolling in textarea */
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
