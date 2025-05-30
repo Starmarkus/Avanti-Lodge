@@ -146,7 +146,7 @@ async function loadBookings() {
       <strong>Booking Period:</strong> ${start} to ${end}<br>
       <strong>Nights booked:</strong> ${booking.BookingTotalNights}<br>
       <strong>Total Price:</strong> R${booking.BookingTotalPrice.toFixed(2)}
-      ${booking.IsCancelled ? `<p style="color: red; margin-top: 0.5rem;"><strong>Booking Cancelled</strong></p>` : ''}
+      ${booking.iscancelled ? `<p style="color: red; margin-top: 0.5rem;"><strong>Booking Cancelled</strong></p>` : ''}
     `;
     bookingList.appendChild(div);
   });
