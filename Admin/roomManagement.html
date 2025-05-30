@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Room Management</title>
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="adminDashboard.css">
+    <link rel="stylesheet" href="roomManagement.css">
 </head>
 <body>
     <div class="role-badge admin-badge">ADMIN</div>
     <div class="sidebar">
         <h2>Admin Dashboard</h2>
-        <div class="menu-item active">
+        <div class="menu-item">
             <a href="adminDashboard.html">Dashboard</a>
         </div>
         <div class="menu-item">
             <a href="roomBooking.html">Room Management</a>
         </div>
-        <div class="menu-item">
+        <div class="menu-item active">
             <a href="roomManagement.html">Room Bookings</a>
         </div>
         
@@ -26,39 +27,43 @@
 
     <div class="main-content">
         <div class="admin-form">
-            <h2>Promotions Management</h2>
+            <h2>Room Management</h2>
             <div class="form-group">
-                <label>Promotion Name:</label>
-                <input type="text" id="promotion-name">
+                <label>Room Name:</label>
+                <input type="text" id="new-room-name">
             </div>
             <div class="form-group">
                 <label>Description:</label>
-                <textarea id="promotion-description"></textarea>
+                <textarea id="new-room-description"></textarea>
             </div>
             <div class="form-group">
-                <label>Discount (%):</label>
-                <input type="number" id="promotion-discount" min="0" max="100">
+                <label>Price:</label>
+                <input type="number" id="new-room-price" step="1">
             </div>
             <div class="form-group">
-                <label>Start Date:</label>
-                <input type="date" id="promotion-start-date">
+                <label>Rate per Night:</label>
+                <input type="number" id="new-room-rate-per-night" step="1">
             </div>
             <div class="form-group">
-                <label>End Date:</label>
-                <input type="date" id="promotion-end-date">
+                <label>Availability:</label>
+                <input type="checkbox" id="new-room-availability" checked>
             </div>
-            <button class="btn" id="add-promotion-btn">Add Promotion</button>
+            <div class="form-group">
+                <label>Amenities (comma-separated):</label>
+                <input type="text" id="new-room-amenities" placeholder="e.g., WiFi, TV, Pool">
+            </div>
+            <button class="btn" id="add-room-btn">Add Room</button>
         </div>
 
-        <div class="promotion-list" id="promotion-list">
-            <p>No promotions to display. Add a new promotion.</p>
+        <div class="room-list-container">
+            <div class="room-list" id="room-list"></div>
         </div>
     </div>
 
     <!-- Modals -->
     <div id="edit-modal" class="modal">
         <div class="modal-content">
-            <h3 id="modal-title">Edit Promotion</h3>
+            <h3 id="modal-title">Edit Item</h3>
             <div id="modal-content"></div>
             <button class="btn" id="save-changes-btn">Save Changes</button>
             <button class="btn btn-danger" id="cancel-btn-modal">Cancel</button>
@@ -67,6 +72,6 @@
 
     <div id="error-message" class="error-message"></div>
 
-    <script type="module" src="adminDashboard.js"></script>
+    <script type="module" src="roomManagement.js"></script>
 </body>
 </html>

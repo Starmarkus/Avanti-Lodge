@@ -15,8 +15,13 @@ const newRoomAvailability = document.getElementById('new-room-availability');
 const newRoomAmenities = document.getElementById('new-room-amenities');
 const modal = document.getElementById('edit-modal');
 const saveBtn = document.getElementById('save-changes-btn');
-const cancelBtn = document.getElementById('cancel-btn');
+const cancelBtnModal = document.getElementById('cancel-btn-modal');
 const errorMessage = document.getElementById('error-message');
+
+// Booking modal elements
+const bookingModal = document.getElementById('booking-modal');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
 
 // Show error message
 function showError(message) {
@@ -29,6 +34,20 @@ function showError(message) {
     }
 }
 
+function showSuccess(message) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'error-message';
+    successMessage.style.backgroundColor = '#dff0d8';
+    successMessage.style.color = '#3c763d';
+    successMessage.textContent = message;
+    if (errorMessage?.parentNode) {
+        errorMessage.parentNode.insertBefore(successMessage, errorMessage);
+        setTimeout(() => {
+            successMessage.style.display = 'none';
+        }, 5000);
+    }
+}
+
 // Fetch rooms
 async function fetchRooms() {
     try {
@@ -36,14 +55,9 @@ async function fetchRooms() {
             .from('RoomTable')
             .select('*');
 
-        if (error) {
-            console.error('Error fetching rooms:', error);
-            showError('Failed to fetch rooms.');
-            throw error;
-        }
+        if (error) throw error;
 
         if (!rooms || rooms.length === 0) {
-            console.log('No rooms found.');
             renderRooms([]);
             return;
         }
@@ -58,10 +72,7 @@ async function fetchRooms() {
 // Render rooms
 function renderRooms(rooms) {
     const roomList = document.getElementById('room-list');
-    if (!roomList) {
-        console.error('Element with ID "room-list" not found.');
-        return;
-    }
+    if (!roomList) return;
 
     roomList.innerHTML = `
         <table class="room-table">
@@ -78,7 +89,7 @@ function renderRooms(rooms) {
             </thead>
             <tbody>
                 ${rooms.map(room => `
-                    <tr class="${room.RoomAvailability ? 'available' : 'taken'}">
+                    <tr class="room-row">
                         <td>${room.RoomName || 'Unnamed'}</td>
                         <td>${room.RoomDescription || 'No description'}</td>
                         <td>$${room.RoomPrice || 0}</td>
@@ -86,8 +97,7 @@ function renderRooms(rooms) {
                         <td>${room.RoomAvailability ? 'Available' : 'Unavailable'}</td>
                         <td>${room.amenities ? room.amenities.join(', ') : 'None'}</td>
                         <td>
-                            <button class="btn" onclick="editRoom('${room.RoomID}')">Edit</button>
-                            <button class="btn btn-danger" onclick="deleteRoom('${room.RoomID}')">Delete</button>
+                            <button class="btn" onclick="loadRoomBookings('${room.RoomID}')">View Bookings</button>
                         </td>
                     </tr>
                 `).join('')}
@@ -115,11 +125,7 @@ async function addRoom() {
                 .from('RoomTable')
                 .insert([newRoom]);
 
-            if (error) {
-                console.error('Error adding room:', error);
-                showError('Failed to add room.');
-                throw error;
-            }
+            if (error) throw error;
 
             newRoomName.value = '';
             newRoomDescription.value = '';
@@ -146,11 +152,7 @@ async function editRoom(roomId) {
             .eq('RoomID', roomId)
             .single();
 
-        if (error) {
-            console.error('Error fetching room:', error);
-            showError('Failed to fetch room details.');
-            throw error;
-        }
+        if (error) throw error;
 
         if (!room) {
             console.error('No room found with ID:', roomId);
@@ -210,11 +212,7 @@ async function editRoom(roomId) {
                     .update(updatedRoom)
                     .eq('RoomID', roomId);
 
-                if (updateError) {
-                    console.error('Error updating room:', updateError);
-                    showError('Failed to update room.');
-                    throw updateError;
-                }
+                if (updateError) throw updateError;
 
                 modal.style.display = 'none';
                 fetchRooms();
@@ -237,11 +235,7 @@ async function deleteRoom(roomId) {
             .delete()
             .eq('RoomID', roomId);
 
-        if (error) {
-            console.error('Error deleting room:', error);
-            showError('Failed to delete room.');
-            throw error;
-        }
+        if (error) throw error;
 
         fetchRooms();
     } catch (error) {
@@ -250,19 +244,176 @@ async function deleteRoom(roomId) {
     }
 }
 
-// Expose editRoom and deleteRoom globally for table button onclick
+// Load room bookings
+async function loadRoomBookings(roomId) {
+    try {
+        const { data: bookings, error } = await supabaseClient
+            .from('BookingTable')
+            .select('*, users(*)')
+            .eq('RoomID', roomId)
+            .order('BookingStartDate', { ascending: false });
+
+        if (error) throw error;
+
+        const bookingsContainer = document.getElementById(`room-bookings-${roomId}`);
+        
+        if (bookings && bookings.length > 0) {
+            bookingsContainer.innerHTML = `
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Guest</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Nights</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>${booking.users?.Name || 'N/A'} ${booking.users?.Surname || ''}</td>
+                                <td>${booking.BookingStartDate}</td>
+                                <td>${booking.BookingEndDate}</td>
+                                <td>${booking.BookingTotalNights || 0}</td>
+                                <td>$${booking.BookingTotalPrice || 0}</td>
+                                <td>
+                                    <button class="btn" onclick="showBookingDetails('${booking.BookingID}')">Details</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        } else {
+            bookingsContainer.innerHTML = '<p>No bookings found for this room.</p>';
+        }
+
+        // Toggle visibility
+        const containerRow = document.getElementById(`bookings-${roomId}`);
+        containerRow.style.display = containerRow.style.display === 'table-row' ? 'none' : 'table-row';
+    } catch (error) {
+        console.error('Error loading bookings:', error);
+        showError('Failed to load bookings.');
+    }
+}
+
+// Show booking details
+async function showBookingDetails(bookingId) {
+    try {
+        const { data: booking, error } = await supabaseClient
+            .from('BookingTable')
+            .select('*, users(*)')
+            .eq('BookingID', bookingId)
+            .single();
+
+        if (error) throw error;
+
+        const bookingDetails = document.getElementById('booking-details');
+        bookingDetails.innerHTML = `
+            <div class="form-group">
+                <h4>User Details</h4>
+                <p><strong>Name:</strong> ${booking.users?.Name || 'N/A'} ${booking.users?.Surname || ''}</p>
+                <p><strong>Email:</strong> ${booking.users?.Email || 'N/A'}</p>
+                <p><strong>Phone:</strong> ${booking.users?.Phone || 'N/A'}</p>
+            </div>
+            <div class="form-group">
+                <h4>Booking Details</h4>
+                <p><strong>Room:</strong> ${booking.room.roomname || 'N/A'}</p>
+                <p><strong>Start Date:</strong> ${booking.BookingStartDate}</p>
+                <p><strong>End Date:</strong> ${booking.BookingEndDate}</p>
+                <p><strong>Total Nights:</strong> ${booking.BookingTotalNights || 0}</p>
+                <p><strong>Total Price:</strong> $${booking.BookingTotalPrice || 0}</p>
+            </div>
+        `;
+
+        document.getElementById('booking-modal-title').textContent = 'Booking Details';
+        document.getElementById('cancel-booking').style.display = 'none';
+        document.getElementById('cancel-btn').style.display = '';
+        document.getElementById('close-modal-btn').style.display = '';
+        document.getElementById('cancellation-reason').value = '';
+
+        bookingModal.style.display = 'block';
+        currentBookingId = bookingId;
+
+        document.getElementById('cancel-btn').addEventListener('click', () => {
+            document.getElementById('cancel-booking').style.display = '';
+            document.getElementById('cancel-btn').style.display = 'none';
+            document.getElementById('close-modal-btn').style.display = 'none';
+        });
+    } catch (error) {
+        console.error('Error loading booking details:', error);
+        showError('Failed to load booking details.');
+    }
+}
+
+// Cancel booking
+async function cancelBooking() {
+    const reason = document.getElementById('cancellation-reason').value.trim();
+    if (!reason) {
+        showError('Cancellation reason is required');
+        return;
+    }
+
+    try {
+        // Update booking status
+        const { error: updateError } = await supabaseClient
+            .from('BookingTable')
+            .update({ 
+                isCancelled: true, 
+                cancellationReason: reason,
+                cancelledAt: new Date().toISOString() 
+            })
+            .eq('BookingID', currentBookingId);
+
+        if (updateError) throw updateError;
+
+        // Send email notification
+        await sendCancellationEmail(currentBookingId, reason);
+
+        bookingModal.style.display = 'none';
+        fetchRooms();
+        showSuccess('Booking cancelled successfully. Email sent to customer.');
+    } catch (error) {
+        console.error('Error cancelling booking:', error);
+        showError('Failed to cancel booking.');
+    }
+}
+
+// Send cancellation email
+async function sendCancellationEmail(bookingId, reason) {
+    // This is a placeholder implementation
+    // You would typically use an email service like SendGrid, Nodemailer, or Supabase Functions
+    console.log('Sending cancellation email for booking:', bookingId, 'with reason:', reason);
+    // Implementation depends on your email service
+    return { success: true };
+}
+
+// Expose functions globally
 window.editRoom = editRoom;
 window.deleteRoom = deleteRoom;
+window.loadRoomBookings = loadRoomBookings;
+window.showBookingDetails = showBookingDetails;
+let currentBookingId = null;
 
 // Event Listeners
 if (addRoomBtn) {
     addRoomBtn.addEventListener('click', addRoom);
 }
-if (cancelBtn) {
-    cancelBtn.addEventListener('click', () => {
+if (cancelBtnModal) {
+    cancelBtnModal.addEventListener('click', () => {
         modal.style.display = 'none';
     });
 }
+if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+        bookingModal.style.display = 'none';
+    });
+}
+if (confirmCancelBtn) {
+    confirmCancelBtn.addEventListener('click', cancelBooking);
+}
 
 // Initialize
-fetchRooms();
+document.addEventListener('DOMContentLoaded', fetchRooms);

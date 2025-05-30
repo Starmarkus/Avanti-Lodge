@@ -1,0 +1,27 @@
+@import 'common.css';
+
+/* User Management specific styles */
+.user-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.user-table th {
+    background: #f1f1f1;
+    font-weight: bold;
+}
+
+.active-user {
+    background-color: #f0f8ff;
+}
+
+.inactive-user {
+    background-color: #fff0f0;
+}
