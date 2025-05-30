@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (userData.Role === 'Admin' || userData.Role === 'admin') {
             // Redirect admin to admin dashboard
             console.log("Admin detected, redirecting...");
-            window.location.href = "/Admin/adminDashboard.html";
+            window.location.href = "/Admin/roomBooking.html";
         } else {
             // Redirect regular user to user dashboard
             console.log("User detected, redirecting...");

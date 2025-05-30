@@ -21,6 +21,26 @@ const sendEmailBtn = document.getElementById('send-email-btn');
 const closeEmailModalBtn = document.getElementById('close-email-modal-btn');
 const modalCloseBtn = document.getElementById('modal-close-btn');
 
+// Add this code at the end of your script (before the closing tag)
+const logoutBtn = document.getElementById('logout-btn');
+
+logoutBtn.addEventListener('click', async () => {
+    try {
+        const { error } = await supabaseClient.auth.signOut(); // Use supabaseClient instead of supabase
+        if (error) throw error;
+        console.log('Logged out successfully');
+        window.location.href = '../Login/login.html'; // Redirect to login page
+    } catch (error) {
+        console.error('Error logging out:', error.message);
+        // Check if message element exists before using it
+        if (window.message && message.textContent) {
+            message.textContent = `Error logging out: ${error.message}`;
+        } else {
+            console.error('Error logging out:', error.message);
+        }
+    }
+});
+
 // Load rooms with bookings
 async function loadRooms() {
     try {

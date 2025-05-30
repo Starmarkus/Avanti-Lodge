@@ -133,3 +133,7 @@ body {
 .superadmin-badge {
     background: #e74c3c;
 }
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
