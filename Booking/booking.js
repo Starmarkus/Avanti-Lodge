@@ -22,9 +22,9 @@ async function fetchRoomsFromSupabase() {
     });
   }
 
-  return rooms.sort((a, b) => {
-    return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
-  });
+  return rooms.sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+  );
 }
 
 // Generate public URLs for room images from Supabase Storage
@@ -51,9 +51,31 @@ async function getRoomImages(imagePaths) {
 let rooms = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+  setDateInputMin(); // ✅ Prevent past/today-after-2PM date selection
   rooms = await fetchRoomsFromSupabase();
   displayRooms();
 });
+
+// Set minimum date for booking inputs
+function setDateInputMin() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  const minDate = new Date(now);
+  if (hour >= 14) {
+    minDate.setDate(minDate.getDate() + 1);
+  }
+
+  const minDateStr = minDate.toISOString().split('T')[0];
+
+  const startInput = document.getElementById('start-date');
+  const endInput = document.getElementById('end-date');
+
+  if (startInput && endInput) {
+    startInput.min = minDateStr;
+    endInput.min = minDateStr;
+  }
+}
 
 // Render all rooms dynamically
 function displayRooms() {
@@ -101,10 +123,8 @@ function displayRooms() {
 
     const arrowContainer = document.createElement('div');
     arrowContainer.className = 'arrow-container';
-
     arrowContainer.appendChild(prevBtn);
     arrowContainer.appendChild(nextBtn);
-
     imageWrapper.appendChild(arrowContainer);
 
     left.appendChild(title);
@@ -146,12 +166,10 @@ function displayRooms() {
     bookBtn.style.marginLeft = '1rem';
     bookBtn.onclick = () => bookRoom(room.name);
 
-    // Availability result paragraph with styling classes
     const result = document.createElement('p');
     result.id = `result-${index}`;
     result.className = 'availability-result hidden';
 
-    // Add all elements to the right section
     right.appendChild(descHeading);
     right.appendChild(description);
     right.appendChild(amenitiesHeading);
@@ -165,7 +183,6 @@ function displayRooms() {
     right.appendChild(bookBtn);
     right.appendChild(result);
 
-    // Final container setup
     container.appendChild(left);
     container.appendChild(right);
     roomsContainer.appendChild(container);
@@ -174,11 +191,18 @@ function displayRooms() {
 
 // Check if a room is available for the selected date range
 async function checkAvailability(roomName) {
-  const startDate = document.getElementById('start-date').value;
-  const endDate = document.getElementById('end-date').value;
+  const startInput = document.getElementById('start-date');
+  const endInput = document.getElementById('end-date');
+  const startDate = startInput.value;
+  const endDate = endInput.value;
 
   if (!startDate || !endDate) {
     alert('Please select both a start and end date.');
+    return;
+  }
+
+  if (new Date(startDate) < new Date(startInput.min)) {
+    alert(`Start date cannot be earlier than ${startInput.min}.`);
     return;
   }
 
@@ -243,11 +267,18 @@ async function bookRoom(roomName) {
     return;
   }
 
-  const startDate = document.getElementById('start-date').value;
-  const endDate = document.getElementById('end-date').value;
+  const startInput = document.getElementById('start-date');
+  const endInput = document.getElementById('end-date');
+  const startDate = startInput.value;
+  const endDate = endInput.value;
 
   if (!startDate || !endDate) {
     alert('Please select both a start and end date.');
+    return;
+  }
+
+  if (new Date(startDate) < new Date(startInput.min)) {
+    alert(`Start date cannot be earlier than ${startInput.min}.`);
     return;
   }
 
@@ -315,7 +346,7 @@ async function bookRoom(roomName) {
             nights: nights,
             rate: room.rate,
             total: totalCost,
-            userID: user.id // ✅ Include userID here
+            userID: user.id
           }),
         });
 

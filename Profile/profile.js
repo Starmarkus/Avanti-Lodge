@@ -118,9 +118,10 @@ async function loadBookings() {
 
   const { data: bookings, error } = await supabase
     .from('BookingTable')
-    .select('*')
+    .select('*, RoomTable(RoomName)')
     .eq('UserID', user.user.id)
     .order('created_at', { ascending: false });
+
 
   const bookingList = document.getElementById('bookingList');
   bookingList.innerHTML = ''; // Clear old content
@@ -134,11 +135,13 @@ async function loadBookings() {
     const createdAt = new Date(booking.created_at).toLocaleDateString();
     const start = new Date(booking.BookingStartDate).toLocaleDateString();
     const end = new Date(booking.BookingEndDate).toLocaleDateString();
+    const roomName = booking.RoomTable?.RoomName || 'Unknown Room';
 
     const div = document.createElement('div');
     div.className = 'booking-entry';
     div.style.marginBottom = '1rem';
     div.innerHTML = `
+      <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: #1A2619;">${roomName}</h3>
       <strong>Date booked:</strong> ${createdAt}<br>
       <strong>Booking Period:</strong> ${start} to ${end}<br>
       <strong>Nights booked:</strong> ${booking.BookingTotalNights}<br>
@@ -146,5 +149,6 @@ async function loadBookings() {
     `;
     bookingList.appendChild(div);
   });
+
 }
 
