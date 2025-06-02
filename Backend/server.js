@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // Setup CORS - allow requests from your frontend origin
 app.use(cors({
-  origin: 'https://avantiguestlodge.netlify.app',
+  origin: ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
