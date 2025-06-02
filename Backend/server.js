@@ -7,7 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Setup CORS - allow only trusted frontend origins
+// ✅ Setup CORS before any routes or JSON parsing
 const allowedOrigins = ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'];
 
 app.use(cors({
@@ -23,22 +23,25 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Supabase client using service role key
+// ✅ Handle preflight requests
+app.options('*', cors());
+
+// ✅ Express body parser (must come after CORS)
+app.use((req, res, next) => {
+  if (req.originalUrl === '/webhook') {
+    next(); // Skip body parsing for Stripe webhook
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
+// ✅ Supabase client
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-// ✅ Middleware to parse JSON, except for Stripe webhook (needs raw)
-app.use((req, res, next) => {
-  if (req.originalUrl === '/webhook') {
-    next(); // skip body parsing for webhook
-  } else {
-    express.json()(req, res, next);
-  }
-});
 
 // ✅ Create Stripe Checkout Session
 app.post('/create-checkout-session', async (req, res) => {
@@ -78,7 +81,7 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-// ✅ Stripe webhook to insert booking
+// ✅ Stripe webhook
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -135,7 +138,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
   res.sendStatus(200);
 });
 
-// Health check
+// ✅ Health check
 app.get('/', (req, res) => {
   res.send('Server is up and running!');
 });
