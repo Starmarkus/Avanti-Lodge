@@ -1,9 +1,3 @@
-// Initialize your Supabase client at the top (ensure it's available globally)
-const supabaseClient = supabase.createClient(
-  'YOUR_SUPABASE_URL',
-  'YOUR_SUPABASE_ANON_KEY'
-);
-
 // Fetch rooms and images from Supabase
 async function fetchRoomsFromSupabase() {
   const { data, error } = await supabaseClient
