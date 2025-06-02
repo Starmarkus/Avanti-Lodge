@@ -141,7 +141,7 @@ async function loadBookings() {
     div.className = 'booking-entry';
     div.style.marginBottom = '1rem';
     div.innerHTML = `
-      <h4 style="margin-top: 0; margin-bottom: 0.5rem; color: #1A2619;">${roomName}</h4>
+      <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: #1A2619;">${roomName}</h4>
       <strong>Date booked:</strong> ${createdAt}<br>
       <strong>Booking Period:</strong> ${start} to ${end}<br>
       <strong>Nights booked:</strong> ${booking.BookingTotalNights}<br>
