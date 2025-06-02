@@ -7,13 +7,22 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Setup CORS - allow requests from your frontend origin
-app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200 // <- fixes legacy browser CORS issues
-}));
+// ✅ Setup CORS - allow only trusted frontend origins
+const allowedOrigins = ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // Supabase client using service role key
 const supabase = createClient(
@@ -21,18 +30,18 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Middleware to parse JSON, except for webhook route (needs raw)
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+// ✅ Middleware to parse JSON, except for Stripe webhook (needs raw)
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
-    next(); // skip parsing for Stripe webhook
+    next(); // skip body parsing for webhook
   } else {
     express.json()(req, res, next);
   }
 });
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-// Create Stripe Checkout Session
+// ✅ Create Stripe Checkout Session
 app.post('/create-checkout-session', async (req, res) => {
   const { room, start, end, nights, rate, total, userID } = req.body;
 
@@ -70,7 +79,7 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-// Stripe webhook to handle post-payment events
+// ✅ Stripe webhook to insert booking
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;

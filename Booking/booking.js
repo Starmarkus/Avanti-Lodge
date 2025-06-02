@@ -362,6 +362,7 @@ async function bookRoom(roomName) {
         console.error('Error creating checkout session:', err);
         alert('Payment initiation error.');
       }
+      console.log("Proceed button clicked");
     };
 
   } catch (err) {
