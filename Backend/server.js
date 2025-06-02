@@ -7,11 +7,10 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Setup CORS before any routes or JSON parsing
+// ✅ CORS
 const allowedOrigins = ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'];
-
 app.use(cors({
-  origin: function (origin, callback) {
+  origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -22,14 +21,12 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-// ✅ Handle preflight requests
 app.options('*', cors());
 
-// ✅ Express body parser (must come after CORS)
+// ✅ JSON parser (skip for webhook)
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
-    next(); // Skip body parsing for Stripe webhook
+    next();
   } else {
     express.json()(req, res, next);
   }
@@ -43,9 +40,9 @@ const supabase = createClient(
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-// ✅ Create Stripe Checkout Session
+// ✅ Create Checkout Session
 app.post('/create-checkout-session', async (req, res) => {
-  const { room, start, end, nights, rate, total, userID } = req.body;
+  const { roomID, roomName, start, end, nights, rate, total, userID } = req.body;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -54,7 +51,7 @@ app.post('/create-checkout-session', async (req, res) => {
         price_data: {
           currency: 'zar',
           product_data: {
-            name: `Booking: ${room}`,
+            name: `Booking: ${roomName}`,
           },
           unit_amount: Math.round(total * 100),
         },
@@ -64,7 +61,7 @@ app.post('/create-checkout-session', async (req, res) => {
       success_url: 'https://avantiguestlodge.netlify.app/profile/profile',
       cancel_url: 'https://avantiguestlodge.netlify.app/booking/booking',
       metadata: {
-        room,
+        roomID,
         start,
         end,
         nights: nights.toString(),
@@ -76,12 +73,12 @@ app.post('/create-checkout-session', async (req, res) => {
 
     res.json({ url: session.url });
   } catch (error) {
-    console.error('Error creating checkout session:', error.message);
+    console.error('❌ Error creating checkout session:', error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
-// ✅ Stripe webhook
+// ✅ Webhook
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -89,7 +86,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   } catch (err) {
-    console.error('Webhook signature verification failed:', err.message);
+    console.error('❌ Webhook verification failed:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -97,29 +94,20 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     const session = event.data.object;
     const metadata = session.metadata;
 
+    console.log('📡 Webhook received:', event.type);
+    console.log('📦 Metadata:', metadata);
+
     if (!metadata.userID || metadata.userID === 'unknown') {
-      console.error('❌ Invalid or missing userID — booking not saved.');
+      console.error('❌ Missing userID — booking not saved.');
       return res.sendStatus(200);
     }
 
     try {
-      const { data: roomRows, error: roomError } = await supabase
-        .from('RoomTable')
-        .select('RoomID')
-        .eq('RoomName', metadata.room)
-        .limit(1);
-
-      if (roomError || !roomRows || roomRows.length === 0) {
-        throw new Error(roomError?.message || 'Room not found.');
-      }
-
-      const roomID = roomRows[0].RoomID;
-
       const insertRes = await supabase
         .from('BookingTable')
         .insert({
           UserID: metadata.userID,
-          RoomID: roomID,
+          RoomID: metadata.roomID,
           BookingStartDate: metadata.start,
           BookingEndDate: metadata.end,
           BookingTotalNights: parseInt(metadata.nights),
@@ -129,7 +117,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 
       if (insertRes.error) throw new Error(insertRes.error.message);
 
-      console.log('✅ Booking successfully inserted into Supabase');
+      console.log('✅ Booking inserted into Supabase');
     } catch (err) {
       console.error('❌ Error inserting booking:', err.message);
     }
