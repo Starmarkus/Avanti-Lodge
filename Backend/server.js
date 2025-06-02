@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { createClient } = require('@supabase/supabase-js');
@@ -8,9 +7,11 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Setup CORS for Netlify frontend
+// Setup CORS - allow requests from your frontend origin
 app.use(cors({
   origin: 'https://avantiguestlodge.netlify.app',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Supabase client using service role key
@@ -19,20 +20,19 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Stripe webhook secret
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-// Middleware
+// Middleware to parse JSON, except for webhook route (needs raw)
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
-    next(); // skip JSON parser for webhook
+    next();
   } else {
-    express.json()(req, res, next); // parse JSON everywhere else
+    express.json()(req, res, next);
   }
 });
 
 // Create Stripe Checkout Session
-app.post('/create-checkout-session', express.json(), async (req, res) => {
+app.post('/create-checkout-session', async (req, res) => {
   const { room, start, end, nights, rate, total, userID } = req.body;
 
   try {
@@ -58,7 +58,7 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
         nights: nights.toString(),
         rate: rate.toString(),
         total: total.toString(),
-        userID: userID || 'unknown'
+        userID: userID || 'unknown',
       }
     });
 
@@ -69,7 +69,7 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
   }
 });
 
-// Stripe Webhook
+// Stripe webhook to handle post-payment events
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;

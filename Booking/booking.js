@@ -1,4 +1,10 @@
-// Fetch room data from Supabase and their image URLs
+// Initialize your Supabase client at the top (ensure it's available globally)
+const supabaseClient = supabase.createClient(
+  'YOUR_SUPABASE_URL',
+  'YOUR_SUPABASE_ANON_KEY'
+);
+
+// Fetch rooms and images from Supabase
 async function fetchRoomsFromSupabase() {
   const { data, error } = await supabaseClient
     .from('RoomTable')
@@ -27,7 +33,6 @@ async function fetchRoomsFromSupabase() {
   );
 }
 
-// Generate public URLs for room images from Supabase Storage
 async function getRoomImages(imagePaths) {
   const bucket = 'room-images';
   const publicURLs = [];
@@ -51,12 +56,11 @@ async function getRoomImages(imagePaths) {
 let rooms = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  setDateInputMin(); // ✅ Prevent past/today-after-2PM date selection
+  setDateInputMin();
   rooms = await fetchRoomsFromSupabase();
   displayRooms();
 });
 
-// Set minimum date for booking inputs
 function setDateInputMin() {
   const now = new Date();
   const hour = now.getHours();
@@ -77,7 +81,6 @@ function setDateInputMin() {
   }
 }
 
-// Render all rooms dynamically
 function displayRooms() {
   const roomsContainer = document.getElementById('rooms');
   roomsContainer.innerHTML = '';
@@ -189,7 +192,6 @@ function displayRooms() {
   });
 }
 
-// Check if a room is available for the selected date range
 async function checkAvailability(roomName) {
   const startInput = document.getElementById('start-date');
   const endInput = document.getElementById('end-date');
@@ -236,147 +238,91 @@ async function checkAvailability(roomName) {
       .or(`and(BookingStartDate.lte.${endDate},BookingEndDate.gte.${startDate})`);
 
     if (bookingError) {
-      console.error('Error checking bookings:', bookingError);
+      console.error('Error fetching bookings:', bookingError);
       resultElement.textContent = 'Error checking availability.';
       return;
     }
 
-    resultElement.classList.remove('available', 'not-available', 'hidden');
-
     if (bookings.length > 0) {
-      resultElement.textContent = `${roomName} is NOT available from ${startDate} to ${endDate}.`;
-      resultElement.classList.add('not-available');
+      resultElement.textContent = 'This room is NOT available for your selected dates.';
+      resultElement.classList.remove('hidden');
+      resultElement.style.color = 'red';
     } else {
-      resultElement.textContent = `${roomName} is available from ${startDate} to ${endDate}.`;
-      resultElement.classList.add('available');
+      resultElement.textContent = 'This room is available!';
+      resultElement.classList.remove('hidden');
+      resultElement.style.color = 'green';
     }
-
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    resultElement.textContent = 'Error checking availability.';
+  } catch (error) {
+    console.error(error);
+    resultElement.textContent = 'An error occurred during availability check.';
   }
 }
 
-// Trigger the booking modal or redirect
 async function bookRoom(roomName) {
-  const { data: { user } } = await supabaseClient.auth.getUser();
-
-  if (!user) {
-    alert('You must be logged in to book a room.');
-    window.location.href = '/Login/login.html';
-    return;
-  }
-
   const startInput = document.getElementById('start-date');
   const endInput = document.getElementById('end-date');
   const startDate = startInput.value;
   const endDate = endInput.value;
 
   if (!startDate || !endDate) {
-    alert('Please select both a start and end date.');
+    alert('Please select both start and end dates before booking.');
     return;
   }
 
-  if (new Date(startDate) < new Date(startInput.min)) {
-    alert(`Start date cannot be earlier than ${startInput.min}.`);
+  if (new Date(startDate) > new Date(endDate)) {
+    alert('Start date cannot be after end date.');
     return;
   }
 
-  const nights = calculateNights(startDate, endDate);
-  if (nights <= 0) {
-    alert('End date must be after start date.');
+  const user = supabaseClient.auth.user();
+  if (!user) {
+    alert('You must be logged in to book.');
     return;
   }
 
+  // Find room rate
   const room = rooms.find(r => r.name === roomName);
   if (!room) {
     alert('Room not found.');
     return;
   }
 
-  try {
-    const { data: roomData, error: roomError } = await supabaseClient
-      .from('RoomTable')
-      .select('RoomID')
-      .eq('RoomName', roomName)
-      .single();
-
-    if (roomError || !roomData) {
-      console.error('Error fetching RoomID:', roomError);
-      alert('Error verifying room information.');
-      return;
-    }
-
-    const roomID = roomData.RoomID;
-
-    const { data: bookings, error: bookingError } = await supabaseClient
-      .from('BookingTable')
-      .select('BookingStartDate, BookingEndDate')
-      .eq('RoomID', roomID)
-      .or(`and(BookingStartDate.lte.${endDate},BookingEndDate.gte.${startDate})`);
-
-    if (bookingError) {
-      console.error('Error checking bookings:', bookingError);
-      alert('Error checking availability.');
-      return;
-    }
-
-    if (bookings.length > 0) {
-      alert(`${roomName} is NOT available from ${startDate} to ${endDate}. Please choose different dates.`);
-      return;
-    }
-
-    const totalCost = nights * room.rate;
-
-    document.getElementById('modal-title').textContent = `Booking: ${roomName}`;
-    document.getElementById('modal-dates').textContent = `From ${startDate} to ${endDate}`;
-    document.getElementById('modal-nights').textContent = `Number of nights: ${nights}`;
-    document.getElementById('modal-total').textContent = `Total cost: R${totalCost}`;
-    document.getElementById('booking-modal').style.display = 'flex';
-
-    document.getElementById('proceed-payment').onclick = async () => {
-      try {
-       const response = await fetch('https://avantiguest-backend.onrender.com/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            room: room.name,
-            start: startDate,
-            end: endDate,
-            nights: nights,
-            rate: room.rate,
-            total: totalCost,
-            userID: user.id
-          }),
-        });
-
-        const data = await response.json();
-
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert('Failed to initiate payment.');
-          console.error(data.error || 'Unknown error');
-        }
-      } catch (err) {
-        console.error('Error creating checkout session:', err);
-        alert('Payment initiation error.');
-      }
-    };
-
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    alert('Something went wrong while checking availability.');
-  }
-}
-
-function calculateNights(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
-  const diffTime = end - start;
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-}
+  const timeDiff = end.getTime() - start.getTime();
+  const nights = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // inclusive
 
-function closeModal() {
-  document.getElementById('booking-modal').style.display = 'none';
+  if (nights <= 0) {
+    alert('Invalid booking duration.');
+    return;
+  }
+
+  const total = nights * room.rate;
+
+  try {
+    const response = await fetch('https://avantiguest-backend.onrender.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        room: roomName,
+        start: startDate,
+        end: endDate,
+        nights,
+        rate: room.rate,
+        total,
+        userID: user.id
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.url) {
+      window.location = data.url;
+    } else {
+      alert('Error creating checkout session.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Failed to initiate booking.');
+  }
 }
