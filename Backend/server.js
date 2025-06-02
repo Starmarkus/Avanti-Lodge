@@ -8,7 +8,12 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Supabase client using Service Role Key
+// ✅ Setup CORS for Netlify frontend
+app.use(cors({
+  origin: 'https://avantiguestlodge.netlify.app',
+}));
+
+// Supabase client using service role key
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -18,7 +23,6 @@ const supabase = createClient(
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 // Middleware
-app.use(cors());
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
     next(); // skip JSON parser for webhook
@@ -45,8 +49,8 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: 'http://127.0.0.1:5500/Profile/profile.html',
-      cancel_url: 'http://127.0.0.1:5500/Booking/booking.html',
+      success_url: 'https://avantiguestlodge.netlify.app/profile/profile',
+      cancel_url: 'https://avantiguestlodge.netlify.app/booking/booking',
       metadata: {
         room,
         start,
@@ -65,7 +69,7 @@ app.post('/create-checkout-session', express.json(), async (req, res) => {
   }
 });
 
-// Stripe Webhook: needs raw body
+// Stripe Webhook
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -94,7 +98,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
         .limit(1);
 
       if (roomError || !roomRows || roomRows.length === 0) {
-        throw new Error(roomError?.message || 'Room not found or multiple rooms matched.');
+        throw new Error(roomError?.message || 'Room not found.');
       }
 
       const roomID = roomRows[0].RoomID;
@@ -127,6 +131,4 @@ app.get('/', (req, res) => {
   res.send('Server is up and running!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
