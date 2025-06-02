@@ -21,16 +21,16 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
 // Middleware to parse JSON, except for webhook route (needs raw)
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
-    next();
+    next(); // skip parsing for Stripe webhook
   } else {
     express.json()(req, res, next);
   }
 });
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 // Create Stripe Checkout Session
 app.post('/create-checkout-session', async (req, res) => {
