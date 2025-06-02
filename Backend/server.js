@@ -12,6 +12,7 @@ app.use(cors({
   origin: ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200 // <- fixes legacy browser CORS issues
 }));
 
 // Supabase client using service role key
