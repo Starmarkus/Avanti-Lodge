@@ -171,7 +171,7 @@ nav {
 /* Burger styles (same as before) */
 .burger-button {
   font-size: 24px;
-  background: #333;
+  background: #EDB52C;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -181,6 +181,7 @@ nav {
 
 .burger-dropdown {
   display: none;
+  flex-direction: column;
   position: absolute;
   top: 100%;
   left: 0;

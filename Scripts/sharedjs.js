@@ -20,3 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const burgerButton = document.querySelector('.burger-button');
+    const burgerDropdown = document.querySelector('.burger-dropdown');
+
+    // Toggle dropdown on button click
+    burgerButton.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent click from bubbling up
+      const isVisible = burgerDropdown.style.display === 'flex';
+      burgerDropdown.style.display = isVisible ? 'none' : 'flex';
+    });
+
+    // Close dropdown if clicking outside
+    document.addEventListener('click', function(event) {
+      if (!burgerDropdown.contains(event.target) && !burgerButton.contains(event.target)) {
+        burgerDropdown.style.display = 'none';
+      }
+    });
+  });
