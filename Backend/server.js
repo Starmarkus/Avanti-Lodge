@@ -7,7 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ CORS
+// ✅ CORS setup
 const allowedOrigins = ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'];
 app.use(cors({
   origin: (origin, callback) => {
@@ -78,7 +78,7 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-// ✅ Webhook
+// ✅ Stripe Webhook
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -97,13 +97,13 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     console.log('📡 Webhook received:', event.type);
     console.log('📦 Metadata:', metadata);
 
-    if (!metadata.userID || metadata.userID === 'unknown') {
-      console.error('❌ Missing userID — booking not saved.');
+    if (!metadata || !metadata.userID || metadata.userID === 'unknown') {
+      console.error('❌ Invalid or missing metadata:', metadata);
       return res.sendStatus(200);
     }
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('BookingTable')
         .insert({
           UserID: metadata.userID,
@@ -115,6 +115,8 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
           created_at: new Date().toISOString()
         });
 
+      console.log('🗃️ Inserted booking data:', data);
+
       if (error) throw new Error(error.message);
 
       console.log('✅ Booking inserted into Supabase');
@@ -124,6 +126,34 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
   }
 
   res.sendStatus(200);
+});
+
+// ✅ Manual insert test route
+app.get('/test-booking', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('BookingTable')
+      .insert({
+        UserID: 'test-user',
+        RoomID: 'room-1',
+        BookingStartDate: '2025-06-05',
+        BookingEndDate: '2025-06-07',
+        BookingTotalNights: 2,
+        BookingTotalPrice: 1000,
+        created_at: new Date().toISOString()
+      });
+
+    if (error) {
+      console.error('❌ Insert test error:', error.message);
+      return res.status(500).send('Insert test failed: ' + error.message);
+    }
+
+    console.log('🧪 Insert test data:', data);
+    res.send('Test booking inserted successfully!');
+  } catch (err) {
+    console.error('❌ Unexpected test error:', err.message);
+    res.status(500).send('Unexpected error: ' + err.message);
+  }
 });
 
 // ✅ Health check
