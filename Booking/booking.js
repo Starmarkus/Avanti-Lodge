@@ -335,35 +335,37 @@ async function bookRoom(roomName) {
     document.getElementById('booking-modal').style.display = 'flex';
 
     document.getElementById('proceed-payment').onclick = async () => {
-      try {
-       const response = await fetch('https://avantiguest-backend.onrender.com/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            room: room.name,
-            start: startDate,
-            end: endDate,
-            nights: nights,
-            rate: room.rate,
-            total: totalCost,
-            userID: user.id
-          }),
-        });
+    try {
+      const response = await fetch('https://avantiguest-backend.onrender.com/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          roomID: roomID,                 // ✅ required by backend
+          roomName: room.name,            // ✅ for display/logs
+          start: startDate,
+          end: endDate,
+          nights: nights,
+          rate: room.rate,
+          total: totalCost,
+          userID: user.id
+        }),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert('Failed to initiate payment.');
-          console.error(data.error || 'Unknown error');
-        }
-      } catch (err) {
-        console.error('Error creating checkout session:', err);
-        alert('Payment initiation error.');
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Failed to initiate payment.');
+        console.error(data.error || 'Unknown error');
       }
-      console.log("Proceed button clicked");
-    };
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+      alert('Payment initiation error.');
+    }
+    console.log("Proceed button clicked");
+  };
+
 
   } catch (err) {
     console.error('Unexpected error:', err);

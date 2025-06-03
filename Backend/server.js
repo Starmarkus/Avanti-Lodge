@@ -44,6 +44,8 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 app.post('/create-checkout-session', async (req, res) => {
   const { roomID, roomName, start, end, nights, rate, total, userID } = req.body;
 
+  console.log('📨 Incoming booking request:', req.body);
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -61,13 +63,13 @@ app.post('/create-checkout-session', async (req, res) => {
       success_url: 'https://avantiguestlodge.netlify.app/profile/profile',
       cancel_url: 'https://avantiguestlodge.netlify.app/booking/booking',
       metadata: {
-        roomID,
-        start,
-        end,
-        nights: nights.toString(),
-        rate: rate.toString(),
-        total: total.toString(),
-        userID: userID || 'unknown',
+        roomID: roomID?.toString() || 'missing',
+        start: start?.toString() || '',
+        end: end?.toString() || '',
+        nights: nights?.toString() || '',
+        rate: rate?.toString() || '',
+        total: total?.toString() || '',
+        userID: userID?.toString() || '',
       }
     });
 
@@ -97,8 +99,8 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     console.log('📡 Webhook received:', event.type);
     console.log('📦 Metadata:', metadata);
 
-    if (!metadata || !metadata.userID || metadata.userID === 'unknown') {
-      console.error('❌ Invalid or missing metadata:', metadata);
+    if (!metadata || !metadata.userID || !metadata.roomID || metadata.userID === 'unknown' || metadata.roomID === 'missing') {
+      console.error('❌ Missing one or more required metadata fields:', metadata);
       return res.sendStatus(200);
     }
 
