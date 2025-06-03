@@ -103,7 +103,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     }
 
     try {
-      const insertRes = await supabase
+      const { error } = await supabase
         .from('BookingTable')
         .insert({
           UserID: metadata.userID,
@@ -115,7 +115,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
           created_at: new Date().toISOString()
         });
 
-      if (insertRes.error) throw new Error(insertRes.error.message);
+      if (error) throw new Error(error.message);
 
       console.log('✅ Booking inserted into Supabase');
     } catch (err) {
