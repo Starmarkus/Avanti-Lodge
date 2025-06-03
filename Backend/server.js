@@ -7,6 +7,14 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ✅ Supabase client
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
 // ✅ CORS setup
 const allowedOrigins = ['http://127.0.0.1:5500', 'https://avantiguestlodge.netlify.app'];
 app.use(cors({
@@ -26,21 +34,13 @@ app.options('*', cors());
 // ✅ JSON parser (skip for webhook)
 app.use((req, res, next) => {
   if (req.originalUrl === '/webhook') {
-    next();
+    next(); // Leave raw for Stripe webhook
   } else {
     express.json()(req, res, next);
   }
 });
 
-// ✅ Supabase client
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-// ✅ Create Checkout Session
+// ✅ Create Stripe Checkout Session
 app.post('/create-checkout-session', async (req, res) => {
   const { roomID, roomName, start, end, nights, rate, total, userID } = req.body;
 
@@ -69,7 +69,7 @@ app.post('/create-checkout-session', async (req, res) => {
         nights: nights?.toString() || '',
         rate: rate?.toString() || '',
         total: total?.toString() || '',
-        userID: userID?.toString() || '',
+        userID: userID?.toString() || 'unknown',
       }
     });
 
@@ -80,7 +80,7 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-// ✅ Stripe Webhook
+// ✅ Stripe Webhook (must be raw)
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -92,6 +92,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  // Handle the event
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const metadata = session.metadata;
@@ -99,9 +100,15 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     console.log('📡 Webhook received:', event.type);
     console.log('📦 Metadata:', metadata);
 
-    if (!metadata || !metadata.userID || !metadata.roomID || metadata.userID === 'unknown' || metadata.roomID === 'missing') {
+    if (
+      !metadata ||
+      !metadata.userID ||
+      !metadata.roomID ||
+      metadata.userID === 'unknown' ||
+      metadata.roomID === 'missing'
+    ) {
       console.error('❌ Missing one or more required metadata fields:', metadata);
-      return res.sendStatus(200);
+      return res.sendStatus(200); // Do not retry
     }
 
     try {
@@ -117,11 +124,9 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
           created_at: new Date().toISOString()
         });
 
-      console.log('🗃️ Inserted booking data:', data);
-
       if (error) throw new Error(error.message);
 
-      console.log('✅ Booking inserted into Supabase');
+      console.log('✅ Booking inserted into Supabase:', data);
     } catch (err) {
       console.error('❌ Error inserting booking:', err.message);
     }
@@ -130,7 +135,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
   res.sendStatus(200);
 });
 
-// ✅ Manual insert test route
+// ✅ Manual test route for booking insert
 app.get('/test-booking', async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -163,4 +168,7 @@ app.get('/', (req, res) => {
   res.send('Server is up and running!');
 });
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// ✅ Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
