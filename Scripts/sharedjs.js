@@ -5,8 +5,8 @@ const supabaseClient = window.supabase.createClient(
 );
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Logout functionality
   const logoutLink = document.getElementById('logout-link');
-
   if (logoutLink) {
     logoutLink.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -15,27 +15,34 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Logout error:', error.message);
       } else {
         alert('Logged out successfully.');
-        window.location.href = '/Login/login.html'; // Redirect after logout
+        window.location.href = '/Login/login.html';
       }
     });
   }
-});
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const burgerButton = document.querySelector('.burger-button');
-    const burgerDropdown = document.querySelector('.burger-dropdown');
+  // Burger menu toggle
+  const burgerButton = document.querySelector('.burger-button');
+  const burgerDropdown = document.querySelector('.burger-dropdown');
 
-    // Toggle dropdown on button click
-    burgerButton.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent click from bubbling up
-      const isVisible = burgerDropdown.style.display === 'flex';
-      burgerDropdown.style.display = isVisible ? 'none' : 'flex';
+  if (burgerButton && burgerDropdown) {
+    console.log('Burger menu elements found, adding event listeners');
+    
+    burgerButton.addEventListener('click', (e) => {
+      console.log('Burger button clicked');
+      e.stopPropagation(); // Prevents immediate closing by document click
+      burgerDropdown.classList.toggle('show');
     });
 
-    // Close dropdown if clicking outside
-    document.addEventListener('click', function(event) {
-      if (!burgerDropdown.contains(event.target) && !burgerButton.contains(event.target)) {
-        burgerDropdown.style.display = 'none';
+    document.addEventListener('click', (e) => {
+      console.log('Document clicked');
+      if (
+        !burgerDropdown.contains(e.target) &&
+        !burgerButton.contains(e.target)
+      ) {
+        burgerDropdown.classList.remove('show');
       }
     });
-  });
+  } else {
+    console.log('Burger menu elements NOT found:', { burgerButton, burgerDropdown });
+  }
+});
